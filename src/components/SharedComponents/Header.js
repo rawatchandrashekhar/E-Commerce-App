@@ -1,0 +1,58 @@
+import React from 'react'
+import { View, Text, Image, TouchableOpacity, StatusBar } from 'react-native'
+import MII from "react-native-vector-icons/MaterialIcons"
+import { Styles } from '../../assets/globalCSS/GlobalCSS'
+import { Colors } from '../../assets/colors/Color'
+import { navigate } from '../../navigation/navigationService/NavigationService'
+
+const Header = ({ showFavIcon, leftIcon, rightIcon, title, handlePressLeftIcon, handlePressRightIcon, leftImgWidth, leftImgHeight, rightImgWidth, rightImgHeight }) => {
+
+    return (
+        <View style={Styles.headerContainer} >
+            <StatusBar translucent backgroundColor={'transparent'} barStyle={'light-content'} />
+            <View style={{
+                top: 50,
+                justifyContent: "space-between",
+                // alignItems: "center",
+                flexDirection: "row",
+                // backgroundColor: "red",
+                // alignSelf: "center"
+            }}>
+                <View style={{ flexDirection: "row" }}>
+                    <TouchableOpacity onPress={handlePressLeftIcon}>
+                        <Image style={{ ...Styles.hamBurgerImage, width: leftImgWidth, height: leftImgHeight, top: 5 }} source={leftIcon} />
+                    </TouchableOpacity>
+                    <View style={{ bottom: 1 }} >
+                        <Text style={{ ...Styles.headerTxt, marginLeft: 10 }}>{title}</Text>
+                    </View>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                    <TouchableOpacity onPress={() => navigate('Favourite')} style={{ marginRight: 10 }}>
+                        <MII name={showFavIcon ? 'favorite-outline' : ''} size={22} color={Colors.whitesmoke} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handlePressRightIcon}>
+                        <Image source={rightIcon} style={{ ...Styles.cartStyle, width: rightImgWidth, height: rightImgHeight }} />
+                        <View style={{ alignItems: "center", justifyContent: "center", position: "absolute", top: 0, left: 16, borderRadius: 50, height: 12, width: 12, backgroundColor: '#fff' }}>
+                            <Text style={{ fontSize: 8, color: "#000", fontWeight: "bold" }}>0</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    )
+}
+
+Header.defaultProps = {
+    title: '',
+    leftIcon: require('../../assets/images/default.png'),
+    rightIcon: require('../../assets/images/default.png'),
+    handlePressLeftIcon: () => { },
+    handlePressRightIcon: () => { },
+    leftImgWidth: 25,
+    leftImgHeight: 25,
+    rightImgHeight: 25,
+    rightImgWidth: 25,
+    showFavIcon: true
+}
+
+export default Header
