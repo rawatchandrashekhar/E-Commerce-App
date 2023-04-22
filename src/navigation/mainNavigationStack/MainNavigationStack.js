@@ -9,6 +9,7 @@ import DrawerNavigation from '../drawer/DrawerNavigation'
 import { navigationRef } from '../navigationService/NavigationService'
 import Favourite from '../../screens/Favourite'
 import Splash from '../../screens/Splash'
+import ProductDescription from '../../screens/ProductDescription'
 
 const Stack = createNativeStackNavigator()
 
@@ -20,6 +21,7 @@ const MainNavigationStack = () => {
                 <Stack.Screen name='Main' component={DrawerNavigation} options={{ headerShown: false }} />
                 <Stack.Screen name='ProductSearching' component={ProductSearching} options={{ headerShown: false }} />
                 <Stack.Screen name='Favourite' component={Favourite} options={{ headerShown: false }} />
+                <Stack.Screen name='ProductDescription' component={ProductDescription} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     )

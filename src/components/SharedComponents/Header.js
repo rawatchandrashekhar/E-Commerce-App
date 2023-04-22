@@ -4,8 +4,11 @@ import MII from "react-native-vector-icons/MaterialIcons"
 import { Styles } from '../../assets/globalCSS/GlobalCSS'
 import { Colors } from '../../assets/colors/Color'
 import { navigate } from '../../navigation/navigationService/NavigationService'
+import { useSelector } from 'react-redux'
 
 const Header = ({ showFavIcon, leftIcon, rightIcon, title, handlePressLeftIcon, handlePressRightIcon, leftImgWidth, leftImgHeight, rightImgWidth, rightImgHeight }) => {
+
+    let fetchCartLength = useSelector(state => state?.cart?.addToCartData)
 
     return (
         <View style={Styles.headerContainer} >
@@ -33,7 +36,7 @@ const Header = ({ showFavIcon, leftIcon, rightIcon, title, handlePressLeftIcon, 
                     <TouchableOpacity onPress={handlePressRightIcon}>
                         <Image source={rightIcon} style={{ ...Styles.cartStyle, width: rightImgWidth, height: rightImgHeight }} />
                         <View style={{ alignItems: "center", justifyContent: "center", position: "absolute", top: 0, left: 16, borderRadius: 50, height: 12, width: 12, backgroundColor: '#fff' }}>
-                            <Text style={{ fontSize: 8, color: "#000", fontWeight: "bold" }}>0</Text>
+                            <Text style={{ fontSize: 8, color: "#000", fontWeight: "bold" }}>{fetchCartLength?.length}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
