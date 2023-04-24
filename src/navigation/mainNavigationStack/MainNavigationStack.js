@@ -10,13 +10,15 @@ import { navigationRef } from '../navigationService/NavigationService'
 import Favourite from '../../screens/Favourite'
 import Splash from '../../screens/Splash'
 import ProductDescription from '../../screens/ProductDescription'
+import Login from '../../screens/Login'
 
 const Stack = createNativeStackNavigator()
 
 const MainNavigationStack = () => {
     return (
         <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator initialRouteName='Splash' >
+            <Stack.Navigator initialRouteName='Login' >
+                <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name='Splash' component={Splash} options={{ headerShown: false }} />
                 <Stack.Screen name='Main' component={DrawerNavigation} options={{ headerShown: false }} />
                 <Stack.Screen name='ProductSearching' component={ProductSearching} options={{ headerShown: false }} />
