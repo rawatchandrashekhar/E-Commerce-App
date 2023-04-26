@@ -10,7 +10,7 @@ import { addCartData, removeCartData } from '../../storage/redux/slices/AddToCar
 import { navigate } from '../../navigation/navigationService/NavigationService'
 import { useIsFocused } from '@react-navigation/native'
 
-const RenderItem = ({ item }) => {
+const RenderItem = ({ item, showCartButton }) => {
 
     let dispatch = useDispatch()
     let focus = useIsFocused()
@@ -55,12 +55,12 @@ const RenderItem = ({ item }) => {
                 <Text style={{ fontSize: 13, color: Colors.black, marginRight: 2 }}>&#8377;{' '}{item.price}</Text>
                 <Text style={{ textDecorationLine: 'line-through', textDecorationStyle: 'solid', fontSize: 10 }}>{item.oldPrice}</Text>
             </View>
-            <AddToCartButton getValue={getValue} setValue={setValue} handleValue={(value) => handleAddToCart(value)} />
+            {showCartButton ? <AddToCartButton getValue={getValue} setValue={setValue} handleValue={(value) => handleAddToCart(value)} /> : null}
         </View>
     )
 }
 
-const TopProducts = ({ productsData, onRefresh, isRefreshing }) => {
+const TopProducts = ({ productsData, onRefresh, isRefreshing, showCartButton }) => {
 
     const [loader, setLoader] = React.useState(true)
 
@@ -77,7 +77,7 @@ const TopProducts = ({ productsData, onRefresh, isRefreshing }) => {
                     data={productsData}
                     numColumns={2}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => <RenderItem item={item} />}
+                    renderItem={({ item }) => <RenderItem showCartButton={showCartButton} item={item} />}
                     keyExtractor={item => item.id}
                     // onRefresh={onRefresh}
                     // refreshing={isRefreshing}
@@ -101,7 +101,8 @@ const TopProducts = ({ productsData, onRefresh, isRefreshing }) => {
 TopProducts.defaultProps = {
     productsData: [],
     isRefreshing: false,
-    onRefresh: () => { }
+    onRefresh: () => { },
+    showCartButton: true
 }
 
 export default TopProducts
