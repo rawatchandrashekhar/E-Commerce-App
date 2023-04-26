@@ -36,17 +36,17 @@ const Login = () => {
                             <View style={{ marginTop: 30 }}>
                                 <Button btnText={'Login'} />
                             </View>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={{ flexDirection: "row", alignItems: "center", marginTop: 15 }}>
-                                    <Text style={{ fontSize: 14 }} >Forget your password?</Text>
+                            <View style={styles.forgetAndNewContainer}>
+                                <View style={styles.forgetAndNewSubContainerOne}>
+                                    <Text style={styles.forgetAndNewTextOne} >Forget your password?</Text>
                                     <TouchableOpacity>
-                                        <Text style={{ fontSize: 14, color: Colors.lightskyblue, marginLeft: 5 }} >Reset Here</Text>
+                                        <Text style={styles.forgetAndNewTextTwo} >Reset Here</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                                    <Text style={{ fontSize: 14 }} >New to Shoppy?</Text>
+                                <View style={styles.forgetAndNewSubContainerTwo}>
+                                    <Text style={styles.forgetAndNewTextOne} >New to Shoppy?</Text>
                                     <TouchableOpacity>
-                                        <Text style={{ fontSize: 14, color: Colors.lightskyblue, marginLeft: 5 }} >Create Account</Text>
+                                        <Text style={styles.forgetAndNewTextTwo} >Create Account</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -98,5 +98,26 @@ const styles = StyleSheet.create({
         color: Colors.black,
         fontSize: 17,
         marginBottom: 10
+    },
+    forgetAndNewContainer: {
+        alignItems: "center"
+    },
+    forgetAndNewSubContainerOne: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 15
+    },
+    forgetAndNewSubContainerTwo: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 10
+    },
+    forgetAndNewTextOne: {
+        fontSize: 14
+    },
+    forgetAndNewTextTwo: {
+        fontSize: 14,
+        color: Colors.lightskyblue,
+        marginLeft: 5
     }
 })
