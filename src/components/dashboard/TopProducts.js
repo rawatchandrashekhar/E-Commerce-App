@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Image, FlatList, RefreshControl } from 'react-native'
 import { Colors } from '../../assets/colors/Color'
 import { FontFamily } from '../../assets/fonts/FontFamily'
-import Button from '../SharedComponents/Button'
+import MCI from "react-native-vector-icons/MaterialCommunityIcons"
 import TopProductsShimmer from '../shimmerEffects/TopProductsShimmer'
 import AddToCartButton from '../SharedComponents/AddToCartButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCartData, removeCartData } from '../../storage/redux/slices/AddToCartSlice'
 import { navigate } from '../../navigation/navigationService/NavigationService'
 import { useIsFocused } from '@react-navigation/native'
+import FavouriteButton from '../SharedComponents/FavouriteButton'
 
 const RenderItem = ({ item, showCartButton }) => {
 
@@ -18,7 +19,7 @@ const RenderItem = ({ item, showCartButton }) => {
     const [getValue, setValue] = React.useState(0)
     let fetchProducts = useSelector(state => state?.cart?.addToCartData)
 
-    console.log("FOCUS HOOK>>>>>>>>>>>>", focus);
+    // console.log("FOCUS HOOK>>>>>>>>>>>>", focus);
 
     let discountVal = (item.oldPrice - item.price) / item.oldPrice
     let discountPer = discountVal * 100
@@ -40,6 +41,7 @@ const RenderItem = ({ item, showCartButton }) => {
 
     return (
         <View style={{ flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, margin: 5, borderRadius: 5, padding: 5 }}>
+            <FavouriteButton />
             <View style={{ position: "absolute", right: 5, zIndex: 1 }} >
                 <Image source={require('../../assets/images/discount_new.png')} style={{ width: 32, height: 32 }} />
             </View>

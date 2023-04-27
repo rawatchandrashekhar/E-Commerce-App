@@ -1,22 +1,31 @@
 import React from 'react'
-import { StyleSheet, View, Text, KeyboardAvoidingView, Dimensions, Image, TextInput, ScrollView, StatusBar, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, KeyboardAvoidingView, Dimensions, Image, TextInput, ScrollView, StatusBar, TouchableOpacity, BackHandler, Alert } from 'react-native'
 import HideKeyboard from '../components/SharedComponents/HideKeyboard'
+import { useFocusEffect } from '@react-navigation/native'
 import { Colors } from '../assets/colors/Color'
 import { FontFamily } from '../assets/fonts/FontFamily'
 import Button from '../components/SharedComponents/Button'
 import Input from '../components/SharedComponents/Input'
 import Space from '../components/SharedComponents/Space'
-import { KeyboardListener } from '../components/SharedComponents/KeyboardListener'
+import { navigate, navigateToClearStack } from '../navigation/navigationService/NavigationService'
 
 const { width, height } = Dimensions.get('screen')
 
 const Login = () => {
 
-    // const [getImpMark, setImpMark] = React.useState(<Text>Email or Mobile Number{" "}<Text style={{ color: Colors.red }} >*</Text></Text>)
-
-    // function getImpMark() {
-    //     return (<Text>Email or Mobile Number{" "}<Text style={{ color: Colors.red }} >*</Text></Text>)
-    // }
+    useFocusEffect(
+        React.useCallback(() => {
+            const backAction = () => {
+                BackHandler.exitApp()
+                return true;
+            };
+            const backHandler = BackHandler.addEventListener(
+                'hardwareBackPress',
+                backAction,
+            );
+            return () => backHandler.remove();
+        }, [])
+    )
 
     return (
         <HideKeyboard>
@@ -34,7 +43,7 @@ const Login = () => {
                             <Space mV={5} />
                             <Input placeholderText={'Password*'} keyType={'visible-password'} />
                             <View style={{ marginTop: 30 }}>
-                                <Button btnText={'Login'} />
+                                <Button handlePress={() => navigate('Main')} btnText={'Login'} />
                             </View>
                             <View style={styles.forgetAndNewContainer}>
                                 <View style={styles.forgetAndNewSubContainerOne}>
