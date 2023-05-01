@@ -17,7 +17,7 @@ const profileData = [
 const Profile = ({ navigation }) => {
     return (
         <>
-            <Header handlePressRightIcon={() => alert('CART')} handlePressLeftIcon={() => navigation.goBack()} title={'Profile'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
+            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Profile'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
             <ScrollView>
                 <View style={{ position: "relative", width: width, height: 120, backgroundColor: Colors.lightskyblue }} >
                     <View style={{ position: "absolute", top: -10, zIndex: 1, alignSelf: "center" }}>

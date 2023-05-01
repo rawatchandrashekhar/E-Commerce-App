@@ -39,7 +39,7 @@ const ProductSearching = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Header handlePressRightIcon={() => alert('CART')} handlePressLeftIcon={() => navigation.goBack()} title={'Products'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
+            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Products'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
             <Search handleChangeTxt={(txt) => handleSearch(txt)} searchTxt={searchTxt} setSearchTxt={setSearchTxt} />
             <TopProducts showCartButton={false} productsData={data} isRefreshing={isRefreshing} onRefresh={onRefresh} />
         </View>

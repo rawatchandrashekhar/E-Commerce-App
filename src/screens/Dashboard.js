@@ -39,7 +39,7 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <View style={{ height: height, flex: 1 }}>
-            <Header handlePressLeftIcon={() => navigation.openDrawer()} handlePressRightIcon={() => alert('CART')} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
+            <Header handlePressLeftIcon={() => navigation.openDrawer()} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
             <View style={{ marginTop: 10 }}>
                 <Categories data={data} />
             </View>

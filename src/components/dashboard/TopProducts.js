@@ -8,8 +8,9 @@ import AddToCartButton from '../SharedComponents/AddToCartButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCartData, removeCartData } from '../../storage/redux/slices/AddToCartSlice'
 import { navigate } from '../../navigation/navigationService/NavigationService'
-import { useIsFocused } from '@react-navigation/native'
+import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import FavouriteButton from '../SharedComponents/FavouriteButton'
+import { addFavData, removeFavData } from '../../storage/redux/slices/AddToFavouriteSlice'
 
 const RenderItem = ({ item, showCartButton }) => {
 
@@ -17,7 +18,9 @@ const RenderItem = ({ item, showCartButton }) => {
     let focus = useIsFocused()
 
     const [getValue, setValue] = React.useState(0)
+    const [selected, setSelected] = React.useState(false)
     let fetchProducts = useSelector(state => state?.cart?.addToCartData)
+    let fetchFavProducts = useSelector(state => state?.favourite?.addToFavouriteData)
 
     // console.log("FOCUS HOOK>>>>>>>>>>>>", focus);
 
@@ -32,16 +35,55 @@ const RenderItem = ({ item, showCartButton }) => {
             dispatch(removeCartData(item))
     }
 
+    const handleChange = (value) => {
+        if (value) {
+            dispatch(addFavData(item))
+        } else {
+            dispatch(removeFavData(item))
+        }
+    }
+
     React.useEffect(() => {
         fetchProducts?.filter((i, ind) => {
-            if (item.id === i.id)
+            if (item.id === i.id) {
+                console.log("i?.qtyValue", i?.qtyValue);
                 setValue(i?.qtyValue)
+                return i
+            }
+        })
+    }, [focus])
+
+    React.useEffect(() => {
+        let fp = fetchProducts?.filter((i, ind) => {
+            if (item.id === i.id)
+                return i
+        })
+        console.log("FPPPPPPPP", fp);
+    }, [focus])
+
+    // useFocusEffect(
+    //     React.useCallback(() => {
+    //         if (getValue === 0) {
+    //             setValue(0)
+    //         }
+    //     }, [focus, getValue])
+    // )
+    // React.useEffect(() => {
+    //     if (getValue === 0) {
+    //         setValue(0)
+    //     }
+    // }, [focus, getValue])
+
+    React.useEffect(() => {
+        fetchFavProducts?.filter((i, ind) => {
+            if (item.id === i.id)
+                setSelected(!selected)
         })
     }, [focus])
 
     return (
         <View style={{ flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, margin: 5, borderRadius: 5, padding: 5 }}>
-            <FavouriteButton />
+            <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />
             <View style={{ position: "absolute", right: 5, zIndex: 1 }} >
                 <Image source={require('../../assets/images/discount_new.png')} style={{ width: 32, height: 32 }} />
             </View>

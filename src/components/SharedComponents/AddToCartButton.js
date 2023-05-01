@@ -7,6 +7,8 @@ import { Colors } from '../../assets/colors/Color'
 
 const AddToCartButton = ({ handleValue, getValue, setValue }) => {
 
+    console.log("GET VALUEEEEEEEEEE", getValue);
+
     const handleDecrement = () => {
         if (getValue > 0) {
             setValue(getValue - 1)

@@ -11,6 +11,7 @@ import Favourite from '../../screens/Favourite'
 import Splash from '../../screens/Splash'
 import ProductDescription from '../../screens/ProductDescription'
 import Login from '../../screens/Login'
+import Cart from '../../screens/Cart'
 
 const Stack = createNativeStackNavigator()
 
@@ -24,6 +25,7 @@ const MainNavigationStack = () => {
                 <Stack.Screen name='ProductSearching' component={ProductSearching} options={{ headerShown: false }} />
                 <Stack.Screen name='Favourite' component={Favourite} options={{ headerShown: false }} />
                 <Stack.Screen name='ProductDescription' component={ProductDescription} options={{ headerShown: false }} />
+                <Stack.Screen name='Cart' component={Cart} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     )

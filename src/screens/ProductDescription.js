@@ -38,7 +38,7 @@ const ProductDescription = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1 }} >
-            <Header handlePressRightIcon={() => alert('CART')} handlePressLeftIcon={() => navigation.goBack()} title={'Description'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
+            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Description'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
             <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15, padding: 10 }}>
                 <Image source={params?.image} style={{ width: 300, height: 300, alignSelf: "center" }} resizeMode='contain' />
                 <Space mV={10} />
