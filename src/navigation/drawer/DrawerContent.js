@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Dimensions, Image, TouchableOpacity, ScrollView, Animated, LayoutAnimation } from 'react-native'
 import MI from "react-native-vector-icons/MaterialCommunityIcons"
 import II from "react-native-vector-icons/Ionicons"
 import MII from "react-native-vector-icons/MaterialIcons"
@@ -10,8 +10,50 @@ import { Colors } from '../../assets/colors/Color'
 import { FontFamily } from '../../assets/fonts/FontFamily'
 import { navigate } from '../navigationService/NavigationService'
 import { Styles } from '../../assets/globalCSS/GlobalCSS'
+import { ToggleAnimation } from '../../components/animations/ToggleAnimation'
 
 const { width, height } = Dimensions.get('screen')
+
+const data = [
+    { title: "Dummy Title One", options: ['Dummy Option One', 'Dummy Option Two', 'Dummy Option Three'] }
+]
+
+const AccordianItem = ({ item }) => {
+
+    const [show, setShow] = React.useState(false)
+    const animationController = React.useRef(new Animated.Value(0)).current
+
+    const toggleListItem = () => {
+        const config = {
+            duration: 300,
+            toValue: show ? 0 : 1,
+            useNativeDriver: true
+        }
+        Animated.timing(animationController, config).start()
+        LayoutAnimation.configureNext(ToggleAnimation)
+        setShow(!show)
+    }
+
+    const arrowTransform = animationController.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '90deg'],
+    })
+
+    return <View>
+        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => toggleListItem()} >
+            <Text>{item.title}</Text>
+            <Animated.View style={{ transform: [{ rotateZ: arrowTransform }], marginLeft: "auto", }}>
+                <Image source={require('../../assets/images/profile/moreThan.png')} style={{ width: 20, height: 20 }} />
+            </Animated.View>
+        </TouchableOpacity>
+        {show && <View style={{ overflow: "hidden", backgroundColor: "#f2f2f2f2" }}>
+            {item.options.map((itm, ind) => {
+                return <View key={ind} ><Text>{itm}</Text></View>
+            })}
+        </View>}
+        {/* <Text>{item.options}</Text> */}
+    </View>
+}
 
 const DrawerContent = (props) => {
 
@@ -55,8 +97,16 @@ const DrawerContent = (props) => {
                             <MI name='logout' size={22} color={Colors.lightskyblue} />
                             <Text style={{ marginLeft: 20, fontSize: 14, color: "#000" }}>Logout</Text>
                         </TouchableOpacity>
+                        {/* {data.map((item, index) => {
+                            return <AccordianItem item={item} key={index} />
+                        })} */}
                     </View>
                 </ScrollView>
+                {/* <FlatList
+                    data={data}
+                    renderItem={({ item }) => <Item item={item} />}
+                    keyExtractor={(item, index) => index}
+                /> */}
                 <View style={{ position: "absolute", bottom: 0, backgroundColor: Colors.borderColor, width: '100%' }}>
                     <Text style={{ textAlign: "center", fontSize: 12, padding: 10 }}>APP V. 1.0</Text>
                 </View>

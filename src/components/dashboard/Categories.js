@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { View, Text, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native'
 import { Styles } from '../../assets/globalCSS/GlobalCSS'
 import CategoryShimmer from '../shimmerEffects/CategoryShimmer'
@@ -46,4 +46,4 @@ Categories.defaultProps = {
     data: []
 }
 
-export default Categories
+export default memo(Categories)

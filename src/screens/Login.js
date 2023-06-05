@@ -1,13 +1,15 @@
 import React from 'react'
 import { StyleSheet, View, Text, KeyboardAvoidingView, Dimensions, Image, TextInput, ScrollView, StatusBar, TouchableOpacity, BackHandler, Alert } from 'react-native'
 import HideKeyboard from '../components/SharedComponents/HideKeyboard'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { Colors } from '../assets/colors/Color'
 import { FontFamily } from '../assets/fonts/FontFamily'
 import Button from '../components/SharedComponents/Button'
 import Input from '../components/SharedComponents/Input'
 import Space from '../components/SharedComponents/Space'
 import { navigate, navigateToClearStack } from '../navigation/navigationService/NavigationService'
+import { getStringData } from '../storage/asyncStorage/AsyncDataStorage'
+import strings from '../localization/localizedStrings/LocalizedStrings'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -27,6 +29,20 @@ const Login = () => {
         }, [])
     )
 
+    const selectedLanguage = async () => {
+        let fetchLang = await getStringData('Language')
+        console.log("fetchLang", fetchLang);
+        if (fetchLang) {
+            strings.setLanguage(fetchLang)
+        }
+    }
+
+    useFocusEffect(
+        React.useCallback(() => {
+            selectedLanguage()
+        }, [])
+    )
+
     return (
         <HideKeyboard>
             <KeyboardAvoidingView style={styles.keyboardAvoidViewContainer}>
@@ -38,24 +54,24 @@ const Login = () => {
                             <Text style={styles.logoTxt}>Shoppy</Text>
                         </View>
                         <View style={{ marginTop: 70 }}>
-                            <Text style={styles.loginTxtStyle} >Login to your account</Text>
-                            <Input placeholderText={'Email or Mobile Number*'} keyType={'email-address'} />
+                            <Text style={styles.loginTxtStyle} >{strings.LoginToYourAccount}</Text>
+                            <Input placeholderText={strings.EmailOrMobileNumber} keyType={'email-address'} />
                             <Space mV={5} />
-                            <Input placeholderText={'Password*'} keyType={'visible-password'} />
+                            <Input placeholderText={strings.Password} keyType={'visible-password'} />
                             <View style={{ marginTop: 30 }}>
-                                <Button handlePress={() => navigate('Main')} btnText={'Login'} />
+                                <Button handlePress={() => navigate('Main')} btnText={strings.Login} />
                             </View>
                             <View style={styles.forgetAndNewContainer}>
                                 <View style={styles.forgetAndNewSubContainerOne}>
-                                    <Text style={styles.forgetAndNewTextOne} >Forget your password?</Text>
+                                    <Text style={styles.forgetAndNewTextOne} >{strings.ForgetPassword}?</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.forgetAndNewTextTwo} >Reset Here</Text>
+                                        <Text style={styles.forgetAndNewTextTwo} >{strings.ResetHere}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.forgetAndNewSubContainerTwo}>
-                                    <Text style={styles.forgetAndNewTextOne} >New to Shoppy?</Text>
+                                    <Text style={styles.forgetAndNewTextOne} >{strings.NewToShoppy}?</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.forgetAndNewTextTwo} >Create Account</Text>
+                                        <Text style={styles.forgetAndNewTextTwo} >{strings.CreateAccount}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>

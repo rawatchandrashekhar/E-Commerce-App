@@ -6,6 +6,7 @@ import { store } from './src/storage/redux/Store';
 import { Provider } from 'react-redux';
 
 const App = () => {
+
     return (
         <Provider store={store}>
             <MainNavigationStack />

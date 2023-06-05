@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { View, Text, TouchableOpacity, Image, FlatList, RefreshControl } from 'react-native'
 import { Colors } from '../../assets/colors/Color'
 import { FontFamily } from '../../assets/fonts/FontFamily'
@@ -11,8 +11,14 @@ import { navigate } from '../../navigation/navigationService/NavigationService'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import FavouriteButton from '../SharedComponents/FavouriteButton'
 import { addFavData, removeFavData } from '../../storage/redux/slices/AddToFavouriteSlice'
+import { AlertSuccess } from '../SharedComponents/Alert'
 
 const RenderItem = ({ item, showCartButton }) => {
+
+    console.log("item", item);
+
+    let tempImg = item?.image
+    console.log("tempImg", tempImg);
 
     let dispatch = useDispatch()
     let focus = useIsFocused()
@@ -38,27 +44,24 @@ const RenderItem = ({ item, showCartButton }) => {
     const handleChange = (value) => {
         if (value) {
             dispatch(addFavData(item))
+            AlertSuccess('Added Item to FAVOURITE!')
         } else {
             dispatch(removeFavData(item))
+            AlertSuccess('Removed Item from FAVOURITE!')
         }
     }
 
     React.useEffect(() => {
-        fetchProducts?.filter((i, ind) => {
+        let fp = fetchProducts?.filter((i, ind) => {
             if (item.id === i.id) {
                 console.log("i?.qtyValue", i?.qtyValue);
                 setValue(i?.qtyValue)
                 return i
             }
         })
-    }, [focus])
-
-    React.useEffect(() => {
-        let fp = fetchProducts?.filter((i, ind) => {
-            if (item.id === i.id)
-                return i
-        })
-        console.log("FPPPPPPPP", fp);
+        if (fp == "") {
+            setValue(0)
+        }
     }, [focus])
 
     // useFocusEffect(
@@ -92,7 +95,7 @@ const RenderItem = ({ item, showCartButton }) => {
                 <Text style={{ fontSize: 7, color: "#fff", fontFamily: FontFamily.PoppinsBold, bottom: 3 }}>off</Text>
             </View>
             <TouchableOpacity onPress={() => navigate('ProductDescription', item)} style={{ alignItems: "center" }}>
-                <Image source={item.image} style={{ width: 150, height: 150, marginTop: 10 }} resizeMode='center' />
+                <Image source={item.image[0]} style={{ width: 150, height: 150, marginTop: 10 }} resizeMode='center' />
             </TouchableOpacity>
             <Text numberOfLines={1} style={{ fontSize: 14, marginTop: 10, color: Colors.black, fontFamily: FontFamily.PoppinsMedium }} >{item.title}</Text>
             <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
@@ -114,6 +117,8 @@ const TopProducts = ({ productsData, onRefresh, isRefreshing, showCartButton }) 
         }, 4000);
     }, [])
 
+
+
     return (
         <>
             {loader ? <TopProductsShimmer /> :
@@ -126,7 +131,7 @@ const TopProducts = ({ productsData, onRefresh, isRefreshing, showCartButton }) 
                     // onRefresh={onRefresh}
                     // refreshing={isRefreshing}
                     contentContainerStyle={{ margin: 10 }}
-                    ListFooterComponent={<View style={{ marginBottom: 30 }} />}
+                    // ListFooterComponent={<View style={{ marginBottom: 30 }} />}
                     refreshControl={
                         <RefreshControl
                             refreshing={isRefreshing}
@@ -149,4 +154,4 @@ TopProducts.defaultProps = {
     showCartButton: true
 }
 
-export default TopProducts
+export default memo(TopProducts)

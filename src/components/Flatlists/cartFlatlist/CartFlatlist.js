@@ -24,7 +24,7 @@ const Item = ({ item }) => {
     return (
         <View style={{ width: width * 0.9, backgroundColor: Colors.white, borderWidth: 1, borderColor: Colors.lightskyblue, padding: 10, marginTop: 10, borderRadius: 5 }} >
             <View style={{ flexDirection: "row" }} >
-                <Image source={item?.image} style={{ width: 60, height: 80, marginRight: 10 }} resizeMode='contain' />
+                <Image source={item?.image[0]} style={{ width: 60, height: 80, marginRight: 10 }} resizeMode='contain' />
                 <View style={{ alignItems: "flex-start" }}>
                     <Text numberOfLines={1} style={{ fontSize: 16, width: 230, fontFamily: FontFamily.PoppinsMedium, color: Colors.black }} >{item?.title}</Text>
                     <Text style={{ fontFamily: FontFamily.PoppinsMedium, fontSize: 14 }} >Quantity{' '}:{' '}{item?.qtyValue}</Text>
@@ -36,6 +36,7 @@ const Item = ({ item }) => {
 }
 
 const CartFlatlist = ({ data }) => {
+    console.log("redux cart data", data);
     return (
         <FlatList
             data={data}

@@ -3,10 +3,10 @@ import { Text, TouchableOpacity } from 'react-native'
 import { Colors } from '../../assets/colors/Color'
 import { FontFamily } from '../../assets/fonts/FontFamily'
 
-const Button = ({ btnText, btnWidth, handlePress }) => {
+const Button = ({ btnText, btnWidth, handlePress, txtColor, btnBack, txtSize }) => {
     return (
-        <TouchableOpacity onPress={() => handlePress()} style={{ borderRadius: 5, marginTop: 5, marginBottom: 5, width: btnWidth, backgroundColor: Colors.lightskyblue, alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ color: "#fff", padding: 6, fontFamily: FontFamily.PoppinsMedium }} >{btnText}</Text>
+        <TouchableOpacity onPress={() => handlePress()} style={{ borderRadius: 5, marginTop: 5, marginBottom: 5, width: btnWidth, backgroundColor: btnBack, alignItems: "center", justifyContent: "center" }}>
+            <Text style={{ color: txtColor, padding: 6, fontFamily: FontFamily.PoppinsMedium, fontSize: txtSize }} >{btnText}</Text>
         </TouchableOpacity>
     )
 }
@@ -14,7 +14,10 @@ const Button = ({ btnText, btnWidth, handlePress }) => {
 Button.defaultProps = {
     btnText: 'BUTTON',
     btnWidth: '100%',
-    handlePress: () => { }
+    handlePress: () => { },
+    txtColor: '#fff',
+    btnBack: Colors.lightskyblue,
+    txtSize: 14
 }
 
 export default Button
