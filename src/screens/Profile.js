@@ -4,6 +4,7 @@ import Header from '../components/SharedComponents/Header'
 import { Colors } from '../assets/colors/Color'
 import { FontFamily } from '../assets/fonts/FontFamily'
 import RBSheet from 'react-native-raw-bottom-sheet'
+import Radio from '../components/SharedComponents/Radio'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -17,13 +18,17 @@ const profileData = [
 ]
 
 const languageData = [
-    { label: "English", value: "English" },
-    { label: "हिन्दी", value: "Hindi" }
+    { label: "English", value: "English", tempLabel: "(device's language)" },
+    { label: "हिन्दी", value: "Hindi", tempLabel: "Hindi" }
 ]
 
 const LanguageSelector = ({ item }) => {
-    return <View>
-        <Text>{item.label}</Text>
+    return <View style={{ flexDirection: "row", alignItems: "center", marginTop: 14 }}>
+        <Radio />
+        <View style={{ marginLeft: 15 }} >
+            <Text style={{ fontWeight: "bold", color: Colors.black, fontSize: 18, fontFamily: FontFamily.PoppinsMedium }} >{item.label}</Text>
+            <Text style={{ color: Colors.black, fontSize: 12, fontFamily: FontFamily.PoppinsMedium }} >{item.tempLabel}</Text>
+        </View>
     </View>
 }
 
@@ -65,6 +70,7 @@ const Profile = ({ navigation }) => {
                         })}
                     </View>
                 </View>
+                {/* <Image source={require('../assets/gif/testing.gif')} /> */}
             </ScrollView>
             <RBSheet
                 ref={refRBSheet}
@@ -86,9 +92,11 @@ const Profile = ({ navigation }) => {
                     }
                 }}
             >
-                {languageData?.map((item, index) => {
-                    return <LanguageSelector key={index} item={item} />
-                })}
+                <View style={{ marginHorizontal: 15 }} >
+                    {languageData?.map((item, index) => {
+                        return <LanguageSelector key={index} item={item} />
+                    })}
+                </View>
             </RBSheet>
         </>
     )

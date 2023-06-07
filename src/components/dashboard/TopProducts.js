@@ -131,7 +131,7 @@ const TopProducts = ({ productsData, onRefresh, isRefreshing, showCartButton }) 
                     // onRefresh={onRefresh}
                     // refreshing={isRefreshing}
                     contentContainerStyle={{ margin: 10 }}
-                    // ListFooterComponent={<View style={{ marginBottom: 30 }} />}
+                    ListFooterComponent={<View style={{ marginBottom: 30 }} />}
                     refreshControl={
                         <RefreshControl
                             refreshing={isRefreshing}

@@ -29,5 +29,6 @@ export default {
   ForgetPassword: 'अपना पासवर्ड भूल गए हैं',
   ResetHere: 'यहां रीसेट करें',
   CreateAccount: 'खाता बनाएं',
-  NewToShoppy: 'शोपि में नए हो'
+  NewToShoppy: 'शोपि में नए हो',
+  Profile: 'प्रोफ़ाइल'
 };

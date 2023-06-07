@@ -28,5 +28,6 @@ export default {
   ForgetPassword: 'Forget your password',
   ResetHere: 'Reset here',
   CreateAccount: 'Create account',
-  NewToShoppy: 'New to Shoppy'
+  NewToShoppy: 'New to Shoppy',
+  Profile: 'Profile'
 };

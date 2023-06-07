@@ -49,7 +49,7 @@ const Dashboard = ({ navigation }) => {
     }, [])
 
     return (
-        <View style={{ height: height, flex: 1 }}>
+        <View style={{ flex: 1 }}>
             <Header handlePressLeftIcon={() => navigation.openDrawer()} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 <View>
@@ -57,7 +57,7 @@ const Dashboard = ({ navigation }) => {
                         <Categories data={data} />
                     </View>
                     <CarouselComponent data={imagesData} />
-                    <View style={{ top: -25 }} >
+                    <View style={{ top: -15 }} >
                         <View style={{ alignItems: "center" }} >
                             <Text style={{ color: Colors.black, borderBottomWidth: 1, fontFamily: FontFamily.PoppinsBold, fontSize: 20 }} >{strings.TopProducts}</Text>
                         </View>

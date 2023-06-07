@@ -7,6 +7,7 @@ import ProductSearching from '../../screens/ProductSearching'
 import { Colors } from '../../assets/colors/Color'
 import { FontFamily } from '../../assets/fonts/FontFamily'
 import Profile from '../../screens/Profile'
+import strings from '../../localization/localizedStrings/LocalizedStrings'
 
 const Tab = createBottomTabNavigator()
 
@@ -72,38 +73,33 @@ const BottomTabNavigator = () => {
                 tabBarLabel: '',
                 tabBarIcon: ({ focused, color }) => (
                     focused ? (
-                        <>
+                        <View style={{ alignItems: "center" }} >
                             <Image
                                 source={require('../../assets/images/bottom_tab/selected.png')}
                                 style={{
                                     width: 22,
-                                    height: 22,
+                                    // height: 22,
                                     backgroundColor: 'transparent',
-                                    resizeMode: 'contain',
-                                    top: 5
+                                    top: 13
                                 }}
+                                resizeMode='contain'
                             />
-                            <View style={{
-                                backgroundColor: Colors.white,
-                                height: 5,
-                                width: 78,
-                                bottom: -14,
-                                position: 'absolute',
-                                borderTopLeftRadius: 20,
-                                borderTopRightRadius: 20,
-                            }} />
-                        </>
+                            <Text style={{ color: Colors.white, fontFamily: FontFamily.PoppinsMedium }} >{strings.Home}</Text>
+                        </View>
                     ) : (
-                        <Image
-                            source={require('../../assets/images/bottom_tab/unselected.png')}
-                            style={{
-                                width: 22,
-                                height: 22,
-                                backgroundColor: 'transparent',
-                                resizeMode: 'contain',
-                                top: 5
-                            }}
-                        />
+                        <View style={{ alignItems: "center" }}>
+                            <Image
+                                source={require('../../assets/images/bottom_tab/unselected.png')}
+                                style={{
+                                    width: 22,
+                                    // height: 22,
+                                    backgroundColor: 'transparent',
+                                    top: 13
+                                }}
+                                resizeMode='contain'
+                            />
+                            <Text style={{ color: '#00000038', fontFamily: FontFamily.PoppinsMedium }} >{strings.Home}</Text>
+                        </View>
                     )
                 )
             }} />
@@ -112,20 +108,17 @@ const BottomTabNavigator = () => {
                 tabBarLabel: '',
                 tabBarIcon: ({ focused, color }) => (
                     focused ? (
-                        <>
-                            <FA name='search' color={'#fff'} style={{ top: 5 }} size={20} />
-                            <View style={{
-                                backgroundColor: Colors.white,
-                                height: 5,
-                                width: 78,
-                                bottom: -14,
-                                position: 'absolute',
-                                borderTopLeftRadius: 20,
-                                borderTopRightRadius: 20,
-                            }} />
-                        </>
+                        <View style={{ alignItems: "center", top: 13 }}>
+                            <View>
+                                <FA name='search' color={'#fff'} size={20} />
+                            </View>
+                            <Text style={{ color: Colors.white, fontFamily: FontFamily.PoppinsMedium }} >{strings.Search}</Text>
+                        </View>
                     ) : (
-                        <FA name='search' color={'#00000038'} style={{ top: 5 }} size={20} />
+                        <View style={{ alignItems: "center", top: 13 }} >
+                            <FA name='search' color={'#00000038'} size={20} />
+                            <Text style={{ color: '#00000038', fontFamily: FontFamily.PoppinsMedium }} >{strings.Search}</Text>
+                        </View>
                     )
                 )
             }} />
@@ -134,20 +127,15 @@ const BottomTabNavigator = () => {
                 tabBarLabel: '',
                 tabBarIcon: ({ focused, color }) => (
                     focused ? (
-                        <>
-                            <FA name='user-circle' color={'#fff'} style={{ top: 5 }} size={20} />
-                            <View style={{
-                                backgroundColor: Colors.white,
-                                height: 5,
-                                width: 78,
-                                bottom: -14,
-                                position: 'absolute',
-                                borderTopLeftRadius: 20,
-                                borderTopRightRadius: 20,
-                            }} />
-                        </>
+                        <View style={{ alignItems: "center", top: 13 }}>
+                            <FA name='user-circle' color={'#fff'} size={20} />
+                            <Text style={{ color: Colors.white, fontFamily: FontFamily.PoppinsMedium }} >{strings.Profile}</Text>
+                        </View>
                     ) : (
-                        <FA name='user-circle' color={'#00000038'} style={{ top: 5 }} size={20} />
+                        <View style={{ alignItems: "center", top: 13 }}>
+                            <FA name='user-circle' color={'#00000038'} size={20} />
+                            <Text style={{ color: '#00000038', fontFamily: FontFamily.PoppinsMedium }} >{strings.Profile}</Text>
+                        </View>
                     )
                 )
             }} />

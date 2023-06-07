@@ -5,7 +5,7 @@ import { FontFamily } from '../../assets/fonts/FontFamily'
 
 const Button = ({ btnText, btnWidth, handlePress, txtColor, btnBack, txtSize }) => {
     return (
-        <TouchableOpacity onPress={() => handlePress()} style={{ borderRadius: 5, marginTop: 5, marginBottom: 5, width: btnWidth, backgroundColor: btnBack, alignItems: "center", justifyContent: "center" }}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => handlePress()} style={{ borderRadius: 5, marginTop: 5, marginBottom: 5, width: btnWidth, backgroundColor: btnBack, alignItems: "center", justifyContent: "center" }}>
             <Text style={{ color: txtColor, padding: 6, fontFamily: FontFamily.PoppinsMedium, fontSize: txtSize }} >{btnText}</Text>
         </TouchableOpacity>
     )
