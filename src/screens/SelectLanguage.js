@@ -17,7 +17,7 @@ const SelectLanguage = (props) => {
     const handleSelectLanguage = (label) => {
         storeStringData('Language', label)
         strings.setLanguage(label)
-        props.navigation.replace('Login')
+        props.navigation.replace('Main')
     }
 
     return (

@@ -29,7 +29,7 @@ const ProductDescription = ({ navigation }) => {
     const [selected, setSelected] = React.useState(false)
     const [getIndex, setIndex] = React.useState(0)
 
-    console.log("ROUTE OF PRODUCT DESCRIPTION SCREEN", params);
+    // console.log("ROUTE OF PRODUCT DESCRIPTION SCREEN", params);
 
     const handleAddToCart = (value) => {
         if (value > 0)

@@ -5,6 +5,7 @@ import { Colors } from '../assets/colors/Color'
 import { FontFamily } from '../assets/fonts/FontFamily'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import Radio from '../components/SharedComponents/Radio'
+import BottomSheet from '../components/SharedComponents/BottomSheet'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -72,32 +73,11 @@ const Profile = ({ navigation }) => {
                 </View>
                 {/* <Image source={require('../assets/gif/testing.gif')} /> */}
             </ScrollView>
-            <RBSheet
-                ref={refRBSheet}
-                closeOnDragDown={true}
-                closeOnPressMask={true}
-                // height={300}
-                customStyles={{
-                    wrapper: {
-                        backgroundColor: 'rgba(52, 52, 52, 0.4)',
-                        // opacity: 0.7
-                    },
-                    draggableIcon: {
-                        backgroundColor: "#000"
-                    },
-                    container: {
-                        borderTopLeftRadius: 30,
-                        borderTopRightRadius: 30,
-                        backgroundColor: Colors.white,
-                    }
-                }}
-            >
-                <View style={{ marginHorizontal: 15 }} >
-                    {languageData?.map((item, index) => {
-                        return <LanguageSelector key={index} item={item} />
-                    })}
-                </View>
-            </RBSheet>
+            <BottomSheet
+                content={languageData?.map((item, index) => {
+                    return <LanguageSelector key={index} item={item} />
+                })}
+                refRBSheet={refRBSheet} />
         </>
     )
 }

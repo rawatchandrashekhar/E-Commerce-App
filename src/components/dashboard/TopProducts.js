@@ -15,10 +15,10 @@ import { AlertSuccess } from '../SharedComponents/Alert'
 
 const RenderItem = ({ item, showCartButton }) => {
 
-    console.log("item", item);
+    // console.log("item", item);
 
     let tempImg = item?.image
-    console.log("tempImg", tempImg);
+    // console.log("tempImg", tempImg);
 
     let dispatch = useDispatch()
     let focus = useIsFocused()

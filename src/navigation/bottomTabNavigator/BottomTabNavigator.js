@@ -8,6 +8,7 @@ import { Colors } from '../../assets/colors/Color'
 import { FontFamily } from '../../assets/fonts/FontFamily'
 import Profile from '../../screens/Profile'
 import strings from '../../localization/localizedStrings/LocalizedStrings'
+import TestingScreenOne from '../../screens/testingScreens/TestingScreenOne'
 
 const Tab = createBottomTabNavigator()
 
@@ -68,7 +69,7 @@ const BottomTabNavigator = () => {
             }}
             tabBarStyle={{ padding: 15 }}
         >
-            <Tab.Screen name="Home" component={Dashboard} options={{
+            <Tab.Screen name="TestingScreenOne" component={TestingScreenOne} options={{
                 tabBarLabelStyle: { paddingBottom: 6, fontSize: 12, fontFamily: FontFamily.PoppinsMedium },
                 tabBarLabel: '',
                 tabBarIcon: ({ focused, color }) => (

@@ -12,7 +12,7 @@ const AlertDanger = msg => {
         type: 'danger',
         titleStyle: { fontFamily: FontFamily.PoppinsMedium, textAlign: "center" },
         floating: true,
-        style: { marginTop: 30, width: width * 0.7, },
+        style: { marginTop: 30, padding: 10, alignSelf: "center" },
         // position: { left: width * 0.1 }
     });
 };
@@ -23,7 +23,7 @@ const AlertWarning = msg => {
         type: 'warning',
         titleStyle: { fontFamily: FontFamily.PoppinsMedium, textAlign: "center" },
         floating: true,
-        style: { marginTop: 30, width: width * 0.7, },
+        style: { marginTop: 30, padding: 10, alignSelf: "center" },
     });
 };
 
@@ -33,7 +33,7 @@ const AlertSuccess = msg => {
         type: 'success',
         titleStyle: { fontFamily: FontFamily.PoppinsMedium, textAlign: "center" },
         floating: true,
-        style: { marginTop: 30, width: width * 0.7, },
+        style: { marginTop: 30, padding: 10, alignSelf: "center" },
     });
 };
 

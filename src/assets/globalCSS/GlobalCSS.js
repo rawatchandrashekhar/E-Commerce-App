@@ -60,6 +60,6 @@ export const Styles = StyleSheet.create({
     drawerContentView: {
         backgroundColor: Colors.white,
         overflow: 'hidden',
-        width: width * 0.7
+        width: width
     }
 })

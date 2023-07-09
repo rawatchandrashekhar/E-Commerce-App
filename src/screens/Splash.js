@@ -2,43 +2,81 @@ import React, { useRef, useEffect } from 'react'
 import { View, Text, Animated, StatusBar, StyleSheet, Image } from 'react-native'
 import { Colors } from '../assets/colors/Color'
 import { FontFamily } from '../assets/fonts/FontFamily'
-import { getStringData } from '../storage/asyncStorage/AsyncDataStorage'
+import { getObjectData, getStringData } from '../storage/asyncStorage/AsyncDataStorage'
 import strings from '../localization/localizedStrings/LocalizedStrings'
+import Logo from '../helper/Logo'
+import { useDispatch } from 'react-redux'
+import { addUserData } from '../storage/redux/slices/AddUserDetailData'
 
 const Splash = ({ navigation }) => {
+
+    let dispatch = useDispatch()
 
     let animation = useRef(new Animated.Value(0)).current
 
     useEffect(() => {
-        function splash() {
-            return new Promise(function (resolve, reject) {
-                setTimeout(() => {
-                    startAnimation()
-                    resolve();
-                }, 3000);
-            });
-        }
+        // function splash() {
+        //     return new Promise(function (resolve, reject) {
+        //         setTimeout(() => {
+        //             startAnimation()
+        //             resolve();
+        //         }, 3000);
+        //     });
+        // }
 
-        function login() {
-            return new Promise(function (resolve, reject) {
-                setTimeout(async () => {
-                    let getAsynLan = await getStringData('Language')
-                    if (getAsynLan) {
-                        strings.setLanguage(getAsynLan)
-                        navigation.navigate('Login')
-                    } else {
-                        navigation.navigate('SelectLanguage')
-                    }
-                    resolve();
-                }, 1000);
-            });
-        }
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                startAnimation()
+                resolve();
+            }, 3000);
+        })
+        promise.then(() => {
+            async function temp() {
+                let getAsynLan = await getStringData('Language')
+                let getUserData = await getObjectData('USER_DETAIL')
+                dispatch(addUserData(getUserData))
+                if (getAsynLan) {
+                    strings.setLanguage(getAsynLan)
+                    navigation.navigate('Main')
+                }
+                //  else if (getAsynLan) {
+                //     navigation.navigate('Login')
+                // } else if (getUserData) {
+                //     navigation.navigate('Main')
+                // }
+                else {
+                    navigation.navigate('SelectLanguage')
+                }
+            }
+            temp()
+        }).catch((e) => {
+            console.log("EXCEPTION IN SPLASH SCREEN", e);
+        })
+        // function login() {
+        //     return new Promise(function (resolve, reject) {
+        //         async function temp() {
+        //             let getAsynLan = await getStringData('Language')
+        //             let getUserData = await getObjectData('USER_DETAIL')
+        //             if (getAsynLan && getUserData) {
+        //                 strings.setLanguage(getAsynLan)
+        //                 navigation.navigate('Main')
+        //             } else if (getAsynLan) {
+        //                 navigation.navigate('Login')
+        //             } else if (getUserData) {
+        //                 navigation.navigate('Main')
+        //             } else {
+        //                 navigation.navigate('SelectLanguage')
+        //             }
+        //         }
+        //         resolve(temp);
+        //     });
+        // }
 
-        async function main() {
-            await splash()
-            await login()
-        }
-        main();
+        // async function main() {
+        //     await splash()
+        //     await login()
+        // }
+        // main();
     }, [])
 
     const startAnimation = () => {
@@ -51,17 +89,16 @@ const Splash = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={Colors.lightskyblue} barStyle={'dark-content'} />
-            <Animated.View style={[styles.logoViewContainer, {
+            <StatusBar translucent backgroundColor={Colors.lightskyblue} />
+            <Animated.View style={{
                 transform: [{
                     scale: animation.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [1, 150]
+                        outputRange: [1, 2]
                     })
                 }]
-            }]}>
-                <Image source={require('../assets/images/splash_logo.png')} style={styles.logoImg} />
-                <Text style={styles.logoTxt}>Shoppy</Text>
+            }}>
+                <Logo />
             </Animated.View>
         </View>
     )
@@ -75,25 +112,5 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: Colors.lightskyblue
-    },
-    logoViewContainer: {
-        paddingVertical: 5,
-        paddingHorizontal: 25,
-        flexDirection: "row",
-        alignItems: "center",
-        backgroundColor: Colors.white,
-        borderRadius: 10,
-        width: 235,
-        alignSelf: "center"
-    },
-    logoImg: {
-        width: 50,
-        height: 50
-    },
-    logoTxt: {
-        fontSize: 30,
-        color: Colors.lightskyblue,
-        fontFamily: FontFamily.PoppinsBold,
-        marginLeft: 15
     }
 })

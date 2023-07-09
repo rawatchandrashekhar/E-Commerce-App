@@ -14,6 +14,7 @@ import ProductDescription from '../../screens/ProductDescription'
 import Login from '../../screens/Login'
 import Cart from '../../screens/Cart'
 import SelectLanguage from '../../screens/SelectLanguage'
+import TestingScreenOne from '../../screens/testingScreens/TestingScreenOne'
 
 const Stack = createNativeStackNavigator()
 
@@ -24,7 +25,8 @@ const MainNavigationStack = () => {
         const [getData, setData] = React.useState({})
         // const navigation = useNavigation()
         const handleLink = async (link) => {
-            const myPromise = new Promise((resolve, rejected) => {
+            // const handleLinkData=()=>{
+            const promise = new Promise((resolve, rejected) => {
                 let objOne = {}
                 let objTwo = {}
                 let objThree = {}
@@ -42,15 +44,24 @@ const MainNavigationStack = () => {
                 let productDesc = link.split('?')[1].split('&')[4].split('=')[1].replace(regex, ' ')
                 objThree['description'] = productDesc
                 finalObj = { ...objOne, ...objTwo, ...objFour, ...objFive, ...objThree }
+                alert(JSON.stringify(finalObj))
                 resolve(finalObj);
             });
-            myPromise
-                .then((finalObj) => {
-                    console.log('DYNAMIC LINK OBJ....', finalObj)
-                    console.log("DYNAMIC LINK IN NAVIGATION STACK", link)
-                }).catch((err) => {
-                    console.log("EXCEPTION IN MAIN NAVIGATION STACK>>>>>>>", err);
-                })
+            promise.then((finalObj) => {
+                console.log('DYNAMIC LINK OBJ....', finalObj)
+                console.log("DYNAMIC LINK IN NAVIGATION STACK", link)
+            }).catch((err) => {
+                console.log("EXCEPTION IN MAIN NAVIGATION STACK>>>>>>>", err);
+            })
+            // }
+
+            // const response=handleLinkData()
+            // response.then((finalObj) => {
+            //         console.log('DYNAMIC LINK OBJ....', finalObj)
+            //         console.log("DYNAMIC LINK IN NAVIGATION STACK", link)
+            //     }).catch((err) => {
+            //         console.log("EXCEPTION IN MAIN NAVIGATION STACK>>>>>>>", err);
+            //     })
 
             // // console.log(productDesc)
             // let productId = link.url.split('=').pop()
@@ -78,6 +89,7 @@ const MainNavigationStack = () => {
                 <Stack.Screen name='ProductDescription' component={ProductDescription} options={{ headerShown: false }} />
                 <Stack.Screen name='Cart' component={Cart} options={{ headerShown: false }} />
                 <Stack.Screen name='SelectLanguage' component={SelectLanguage} options={{ headerShown: false }} />
+                <Stack.Screen name='TestingScreenOne' component={TestingScreenOne} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     )
