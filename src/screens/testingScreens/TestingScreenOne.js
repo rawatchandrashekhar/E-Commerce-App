@@ -46,7 +46,7 @@ const TestingScreenOne = () => {
         const [selectedQues, setSelectedQues] = React.useState("")
 
         const fetchSelectedOptData = useSelector(state => state.testingOne.uniqueSelectedOptions)
-        console.log("fetchdata", fetchSelectedOptData);
+        // console.log("fetchdata", fetchSelectedOptData);
 
         React.useEffect(() => {
             fetchSelectedOptData.map((fethItm, fethInd) => {
@@ -63,12 +63,12 @@ const TestingScreenOne = () => {
                 questionId,
                 optItem
             }
-            console.log(selectedData);
+            // console.log(selectedData);
             dispatch(addSelectedOptions(selectedData))
         }
 
-        console.log("selectedopt", selectedOpt);
-        console.log("selectedques", selectedQues);
+        // console.log("selectedopt", selectedOpt);
+        // console.log("selectedques", selectedQues);
 
         return <View>
             <Text>{item.question}</Text>

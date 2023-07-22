@@ -1,14 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Colors } from '../../assets/colors/Color'
 
-const Radio = () => {
-
-    const [getRadioTrue, setRadioTrue] = React.useState(false)
+const Radio = ({ isSelected }) => {
 
     return (
-        <TouchableOpacity onPress={() => setRadioTrue(!getRadioTrue)} style={{ borderWidth: 2, borderRadius: 12, width: 18, height: 18, margin: 5, borderColor: Colors.lightskyblue }}>
-            {getRadioTrue && <View style={{
+        <View style={{ borderWidth: 2, borderRadius: 12, width: 18, height: 18, margin: 5, borderColor: Colors.lightskyblue }}>
+            {isSelected && <View style={{
                 width: 10,
                 height: 10,
                 backgroundColor: Colors.lightskyblue,
@@ -16,7 +14,7 @@ const Radio = () => {
                 alignSelf: "center",
                 top: 2
             }} />}
-        </TouchableOpacity>
+        </View>
     )
 }
 

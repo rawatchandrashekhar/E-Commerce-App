@@ -105,6 +105,11 @@ const DrawerContent = (props) => {
     //     return unsubscribe;
     // }, [props.navigation]);
 
+    const drawerNavigationFun = (screen) => {
+        props.navigation.dispatch(DrawerActions.closeDrawer());
+        props.navigation.navigate(screen)
+    }
+
     return (
         <DrawerContentScrollView
             showsVerticalScrollIndicator={false}
@@ -126,8 +131,12 @@ const DrawerContent = (props) => {
                         < Logo imageWidth={20} imageHeight={20} logoFontSize={15} coloredLogo={true} coloredBorderLine={true} coloredLogoText={true} />
                     </View>
                     <View style={{ flexDirection: "row", alignItems: "center", width: width * 0.3, justifyContent: "flex-end" }} >
-                        <EI name='search' size={30} style={{ color: Colors.black, paddingRight: 5 }} />
-                        <AD name="home" size={25} style={{ color: Colors.black }} />
+                        <TouchableOpacity onPress={() => drawerNavigationFun('ProductSearching')}>
+                            <EI name='search' size={30} style={{ color: Colors.black, paddingRight: 5 }} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => drawerNavigationFun('Main')}>
+                            <AD name="home" size={25} style={{ color: Colors.black }} />
+                        </TouchableOpacity>
                     </View>
                     {/* <Text style={{ color: Colors.black, fontSize: 12, fontFamily: FontFamily.PoppinsMedium, bottom: 2 }} >+919009574613</Text> */}
                 </View>

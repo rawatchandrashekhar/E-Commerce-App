@@ -3,9 +3,10 @@ import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity } from 'rea
 import Header from '../components/SharedComponents/Header'
 import { Colors } from '../assets/colors/Color'
 import { FontFamily } from '../assets/fonts/FontFamily'
-import RBSheet from 'react-native-raw-bottom-sheet'
 import Radio from '../components/SharedComponents/Radio'
 import BottomSheet from '../components/SharedComponents/BottomSheet'
+import { storeStringData } from '../storage/asyncStorage/AsyncDataStorage'
+import strings from '../localization/localizedStrings/LocalizedStrings'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -19,28 +20,54 @@ const profileData = [
 ]
 
 const languageData = [
-    { label: "English", value: "English", tempLabel: "(device's language)" },
-    { label: "हिन्दी", value: "Hindi", tempLabel: "Hindi" }
+    { label: "English", value: "English", tempLabel: "(device's language)", isSelected: false },
+    { label: "हिन्दी", value: "Hindi", tempLabel: "Hindi", isSelected: false }
 ]
 
-const LanguageSelector = ({ item }) => {
-    return <View style={{ flexDirection: "row", alignItems: "center", marginTop: 14 }}>
-        <Radio />
-        <View style={{ marginLeft: 15 }} >
-            <Text style={{ fontWeight: "bold", color: Colors.black, fontSize: 18, fontFamily: FontFamily.PoppinsMedium }} >{item.label}</Text>
-            <Text style={{ color: Colors.black, fontSize: 12, fontFamily: FontFamily.PoppinsMedium }} >{item.tempLabel}</Text>
-        </View>
-    </View>
-}
 
 const Profile = ({ navigation }) => {
 
     const refRBSheet = React.useRef();
 
+    const [getLanguageData, setLanguageData] = React.useState(languageData)
+    const [getRefresh, setRefresh] = React.useState(false)
+
     const handleSelect = (title) => {
         if (title === 'App language') {
             refRBSheet.current.open()
         }
+    }
+
+    React.useEffect(() => {
+
+    }, [getRefresh]);
+
+    const LanguageSelector = ({ item }) => {
+
+        const handleClick = (clickedItem) => {
+            // console.log("clickedItem", clickedItem);
+            storeStringData('Language', clickedItem.value);
+            strings.setLanguage(clickedItem.value);
+            const tempData = languageData?.map((languageItem, languageIndex) => {
+                if (languageItem.value === clickedItem.value) {
+                    setRefresh(true);
+                    return { ...languageItem, isSelected: true }
+                } else {
+                    return { ...languageItem, isSelected: false }
+                }
+            })
+            // console.log("tempData", tempData);
+            setLanguageData(tempData)
+            setRefresh(false)
+        }
+
+        return <TouchableOpacity onPress={() => handleClick(item)} style={{ flexDirection: "row", alignItems: "center", marginTop: 14 }}>
+            <Radio isSelected={item.isSelected} />
+            <View style={{ marginLeft: 15 }} >
+                <Text style={{ fontWeight: "bold", color: Colors.black, fontSize: 18, fontFamily: FontFamily.PoppinsMedium }} >{item.label}</Text>
+                <Text style={{ color: Colors.black, fontSize: 12, fontFamily: FontFamily.PoppinsMedium }} >{item.tempLabel}</Text>
+            </View>
+        </TouchableOpacity>
     }
 
     return (
@@ -74,7 +101,7 @@ const Profile = ({ navigation }) => {
                 {/* <Image source={require('../assets/gif/testing.gif')} /> */}
             </ScrollView>
             <BottomSheet
-                content={languageData?.map((item, index) => {
+                content={getLanguageData?.map((item, index) => {
                     return <LanguageSelector key={index} item={item} />
                 })}
                 refRBSheet={refRBSheet} />
