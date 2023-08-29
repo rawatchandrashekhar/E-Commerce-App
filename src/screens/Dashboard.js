@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { View, Text, FlatList, Image, TouchableOpacity, Dimensions, virtu, ScrollView, BackHandler } from 'react-native'
 import Header from '../components/SharedComponents/Header'
 import { Styles } from '../assets/globalCSS/GlobalCSS'
@@ -54,7 +54,7 @@ const Dashboard = ({ navigation }) => {
 
     React.useEffect(() => {
         addProducts()
-        fetchUserData()
+        // fetchUserData()
         // console.log('addProducts()', addProducts());
     }, [isFocus])
 
@@ -72,6 +72,9 @@ const Dashboard = ({ navigation }) => {
         }, [])
     )
 
+    const categoriesComponent = useMemo(() => <Categories data={data} />, [data]);
+    const topProductsComponent = useMemo(() => <TopProducts productsData={productsData} />, [productsData]);
+
     return (
         <View style={{ flex: 1 }}>
             <Header handlePressLeftIcon={() => navigation.openDrawer()} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
@@ -79,14 +82,16 @@ const Dashboard = ({ navigation }) => {
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 <View>
                     <View style={{ marginTop: 10 }}>
-                        <Categories data={data} />
+                        {/* <Categories data={data} /> */}
+                        {categoriesComponent}
                     </View>
                     <CarouselComponent data={imagesData} />
                     <View style={{ top: -15 }} >
                         <View style={{ alignItems: "center" }} >
                             <Text style={{ color: Colors.black, borderBottomWidth: 1, fontFamily: FontFamily.PoppinsBold, fontSize: 20 }} >{strings.TopProducts}</Text>
                         </View>
-                        <TopProducts productsData={productsData} />
+                        {/* <TopProducts productsData={productsData} /> */}
+                        {topProductsComponent}
                     </View>
                 </View>
             </ScrollView>

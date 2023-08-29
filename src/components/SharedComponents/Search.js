@@ -9,14 +9,14 @@ const { width, height } = Dimensions.get('screen')
 const Search = ({ searchTxt, setSearchTxt, handleChangeTxt }) => {
 
     const handleCancel = () => {
-        setSearchTxt("")
-        handleChangeTxt("")
-        Keyboard.dismiss()
+        setSearchTxt("");
+        handleChangeTxt("");
+        Keyboard.dismiss();
     }
 
     const handleChange = (txt) => {
-        setSearchTxt(txt)
-        handleChangeTxt(txt)
+        setSearchTxt(txt);
+        handleChangeTxt(txt);
     }
 
     return (

@@ -7,6 +7,7 @@ import Radio from '../components/SharedComponents/Radio'
 import BottomSheet from '../components/SharedComponents/BottomSheet'
 import { storeStringData } from '../storage/asyncStorage/AsyncDataStorage'
 import strings from '../localization/localizedStrings/LocalizedStrings'
+import { navigate } from '../navigation/navigationService/NavigationService'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -46,19 +47,22 @@ const Profile = ({ navigation }) => {
 
         const handleClick = (clickedItem) => {
             // console.log("clickedItem", clickedItem);
-            storeStringData('Language', clickedItem.value);
             strings.setLanguage(clickedItem.value);
+            storeStringData('Language', clickedItem.value);
+            // alert(JSON.stringify(clickedItem));
             const tempData = languageData?.map((languageItem, languageIndex) => {
                 if (languageItem.value === clickedItem.value) {
-                    setRefresh(true);
+                    // setRefresh(true);
                     return { ...languageItem, isSelected: true }
                 } else {
                     return { ...languageItem, isSelected: false }
                 }
             })
             // console.log("tempData", tempData);
-            setLanguageData(tempData)
-            setRefresh(false)
+            setLanguageData(tempData);
+            navigate('Profile');
+            refRBSheet.current.close();
+            // setRefresh(false)
         }
 
         return <TouchableOpacity onPress={() => handleClick(item)} style={{ flexDirection: "row", alignItems: "center", marginTop: 14 }}>

@@ -40,7 +40,7 @@ export const Styles = StyleSheet.create({
         justifyContent: "center",
         width: 80,
         height: 100,
-        backgroundColor: '#fff'
+        // backgroundColor: '#fff'
     },
     dashboardMapImageContainer: {
         alignItems: "center",

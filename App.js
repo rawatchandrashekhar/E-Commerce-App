@@ -1,3 +1,4 @@
+import { LogBox } from 'react-native'
 import FlashMessage from 'react-native-flash-message';
 import 'react-native-gesture-handler';
 import React from 'react'
@@ -11,13 +12,14 @@ const App = () => {
 
     React.useEffect(() => {
         async function temp() {
-            await createUserTable()
+            await createUserTable();
         }
         temp().then(() => {
-            insertUserDetail()
+            insertUserDetail();
         }).catch((e) => {
             console.log("EXCEPTION IN INSERT USER DETAIL IN APP", e);
         })
+        LogBox.ignoreAllLogs(true);
     }, [])
 
     return (
