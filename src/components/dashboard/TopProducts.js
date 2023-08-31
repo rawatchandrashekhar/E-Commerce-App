@@ -13,7 +13,7 @@ import FavouriteButton from '../SharedComponents/FavouriteButton'
 import { addFavData, removeFavData } from '../../storage/redux/slices/AddToFavouriteSlice'
 import { AlertSuccess } from '../SharedComponents/Alert'
 
-const RenderItem = ({ item, showCartButton }) => {
+const RenderItem = ({ item, showCartButton,showHorizontal }) => {
 
     // console.log("item", item);
 
@@ -95,7 +95,7 @@ const RenderItem = ({ item, showCartButton }) => {
     const favComponent = useMemo(() => <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />, [selected])
 
     return (
-        <View style={{width:250, flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, marginHorizontal: 8, borderRadius: 5, padding: 5,marginVertical:5 }}>
+        <View style={{width:showHorizontal?250:null, flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, marginHorizontal:showHorizontal? 8:5, borderRadius: 5, padding: 5,marginVertical:5 }}>
             {favComponent}
             <View style={{ position: "absolute", right: 5, zIndex: 1 }} >
                 <Image source={require('../../assets/images/discount_new.png')} style={{ width: 32, height: 32 }} />
