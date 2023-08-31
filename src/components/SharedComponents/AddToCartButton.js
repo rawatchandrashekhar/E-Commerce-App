@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{memo} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import FE from "react-native-vector-icons/Feather"
 import { AlertDanger } from './Alert'
@@ -43,7 +43,7 @@ const AddToCartButton = ({ handleValue, getValue, setValue }) => {
     )
 }
 
-export default AddToCartButton
+export default memo(AddToCartButton)
 
 AddToCartButton.defaultProps = {
     handleValue: () => { }

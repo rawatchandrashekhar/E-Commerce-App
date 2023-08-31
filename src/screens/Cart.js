@@ -20,7 +20,7 @@ const Cart = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Cart'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} showCartIcon={false} />
+            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Cart'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} showCartIcon={false} showLogo={false} />
             {fetchCartProducts.length == 0 ? <View style={{ flex: 1, backgroundColor: "#fff" }} >
                 <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "column" }} >
                     <Image source={require('../assets/gif/emptyBag.gif')} style={{ width: width * 0.9 }} resizeMode='contain' />

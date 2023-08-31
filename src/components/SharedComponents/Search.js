@@ -20,7 +20,7 @@ const Search = ({ searchTxt, setSearchTxt, handleChangeTxt }) => {
     }
 
     return (
-        <View style={{ backgroundColor: Colors.white, width: width * 0.9, height: 45, alignSelf: "center", marginTop: 10, borderRadius: 10, flexDirection: "row", alignItems: "center" }}>
+        <View style={{ backgroundColor: Colors.white, width: "90%", height: 45, alignSelf: "center", marginTop: 10, borderRadius: 10, flexDirection: "row", alignItems: "center" }}>
             <FA name='search' size={16} style={{ paddingLeft: 10, paddingRight: 5 }} />
             <TextInput
                 value={searchTxt}

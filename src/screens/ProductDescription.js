@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback,useMemo } from 'react'
 import { StyleSheet, Text, View, Dimensions, ScrollView, Share } from 'react-native'
 import { useIsFocused, useRoute } from '@react-navigation/native'
 import dynamicLinks from "@react-native-firebase/dynamic-links"
@@ -31,12 +31,15 @@ const ProductDescription = ({ navigation }) => {
 
     // console.log("ROUTE OF PRODUCT DESCRIPTION SCREEN", params);
 
-    const handleAddToCart = (value) => {
-        if (value > 0)
-            dispatch(addCartData({ ...params, qtyValue: value }))
-        else
-            dispatch(removeCartData(params))
-    }
+    const handleAddToCart = useCallback(
+        (value) => {
+            if (value > 0)
+                dispatch(addCartData({ ...params, qtyValue: value }))
+            else
+                dispatch(removeCartData(params))
+        },
+        [getValue],
+    )
 
     React.useEffect(() => {
         fetchProducts.filter((item, index) => {
@@ -45,22 +48,26 @@ const ProductDescription = ({ navigation }) => {
         })
     }, [focus])
 
-    // React.useEffect(() => {
-    //     fetchFavProducts?.filter((i, ind) => {
-    //         if (params.id === i.id)
-    //             setSelected(!selected)
-    //     })
-    // }, [focus])
+    React.useEffect(() => {
+        fetchFavProducts?.filter((i, ind) => {
+            if (params.id === i.id)
+                setSelected(!selected)
+        })
+    }, [focus])
 
-    const handleChange = (value) => {
-        if (value) {
-            dispatch(addFavData(params))
-            AlertSuccess('Added Item to FAVOURITE!')
-        } else {
-            dispatch(removeFavData(params))
-            AlertSuccess('Removed Item from FAVOURITE!')
-        }
-    }
+    const handleChange = useCallback(
+        (value) => {
+            if (value) {
+                dispatch(addFavData(params))
+                AlertSuccess('Added Item to FAVOURITE!')
+            } else {
+                dispatch(removeFavData(params))
+                AlertSuccess('Removed Item from FAVOURITE!')
+            }
+        },
+        [selected],
+    )
+
 
     const generateLink = async () => {
         try {
@@ -89,11 +96,14 @@ const ProductDescription = ({ navigation }) => {
         }
     }
 
+    const favButtonComponent=useMemo(() => <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />, [selected]);
+    const addToCartButtonComponent=useMemo(()=><AddToCartButton setValue={setValue} getValue={getValue} handleValue={(value) => handleAddToCart(value)} />,[getValue])
+
     return (
         <View style={{ flex: 1 }} >
-            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Description'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
+            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Description'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} showLogo={false} />
             <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15, padding: 10 }}>
-                <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />
+                {favButtonComponent}
                 <ShareBtn handlePress={() => shareProduct()} />
                 <CarouselComponent data={params?.image} />
                 <Space mV={10} />
@@ -110,7 +120,7 @@ const ProductDescription = ({ navigation }) => {
                     <Text>{params?.description}</Text>
                 </View>
                 <Space mV={5} />
-                <AddToCartButton setValue={setValue} getValue={getValue} handleValue={(value) => handleAddToCart(value)} />
+                {addToCartButtonComponent}
                 <Space mV={10} />
             </ScrollView>
             {/* <View style={{ position: "absolute", bottom: 5, width: width * 0.9, alignSelf: "center" }}>

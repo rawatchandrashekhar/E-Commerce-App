@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{memo} from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import MCI from "react-native-vector-icons/MaterialCommunityIcons"
 import { Colors } from '../../assets/colors/Color'
 
 const FavouriteButton = ({ selected, setSelected, handlePress }) => {
+
+    console.log("fav. button!!!!!!!!!!!!");
 
     const handleChange = () => {
         setSelected(!selected)
@@ -22,4 +24,4 @@ const FavouriteButton = ({ selected, setSelected, handlePress }) => {
     )
 }
 
-export default FavouriteButton
+export default memo(FavouriteButton)

@@ -76,13 +76,13 @@ const Profile = ({ navigation }) => {
 
     return (
         <>
-            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Profile'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
+            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Profile'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} showLogo={false} />
             <ScrollView>
-                <View style={{ position: "relative", width: width, height: 120, backgroundColor: Colors.lightskyblue }} >
+                <View style={{ position: "relative", width: "100%", height: 120, backgroundColor: Colors.lightskyblue }} >
                     <View style={{ position: "absolute", top: -10, zIndex: 1, alignSelf: "center" }}>
                         <Image source={require('../assets/images/dummyuser.png')} style={{ width: 140, height: 140 }} />
                     </View>
-                    <View style={{ position: "absolute", top: 60, alignSelf: "center", width: width * 0.75, backgroundColor: Colors.white, height: 140, borderRadius: 10 }} >
+                    <View style={{ position: "absolute", top: 60, alignSelf: "center", width: "75%", backgroundColor: Colors.white, height: 140, borderRadius: 10 }} >
                         <View style={{ top: 70, alignItems: "center" }}>
                             <Text style={{ fontFamily: FontFamily.PoppinsMedium, color: Colors.black, fontSize: 15 }} >Chandra Shekhar Rawat</Text>
                             <Text style={{ fontSize: 13, top: -3 }} >+919009574613</Text>
@@ -90,7 +90,7 @@ const Profile = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={{ top: 100, marginBottom: 120 }}>
-                    <View style={{ borderRadius: 10, alignSelf: "center", backgroundColor: Colors.white, width: width * 0.9, padding: 10 }} >
+                    <View style={{ borderRadius: 10, alignSelf: "center", backgroundColor: Colors.white, width: "90%", padding: 10 }} >
                         {profileData.map((item, index) => {
                             return (
                                 <TouchableOpacity onPress={() => handleSelect(item.title)} key={index} style={{ flexDirection: "row", alignItems: "center", margin: 10, padding: 10 }} >

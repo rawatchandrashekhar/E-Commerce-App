@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React,{memo} from 'react'
+import { View} from 'react-native'
 
 const Space = ({ mV, mH }) => {
     return (
@@ -12,5 +12,5 @@ Space.defaultProps = {
     mH: 0
 }
 
-export default Space
+export default memo(Space)
 

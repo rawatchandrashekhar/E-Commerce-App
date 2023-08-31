@@ -9,7 +9,7 @@ export const Styles = StyleSheet.create({
         flex: 1
     },
     headerContainer: {
-        width: width,
+        width: '100%',
         height: 90,
         backgroundColor: Colors.lightskyblue
     },

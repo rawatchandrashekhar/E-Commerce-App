@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react'
+import React, { useState, memo, useCallback, useMemo } from 'react'
 import { View, Text, TouchableOpacity, Image, FlatList, RefreshControl } from 'react-native'
 import { Colors } from '../../assets/colors/Color'
 import { FontFamily } from '../../assets/fonts/FontFamily'
@@ -17,7 +17,7 @@ const RenderItem = ({ item, showCartButton }) => {
 
     // console.log("item", item);
 
-    let tempImg = item?.image
+    // let tempImg = item?.image
     // console.log("tempImg", tempImg);
 
     let dispatch = useDispatch()
@@ -34,22 +34,29 @@ const RenderItem = ({ item, showCartButton }) => {
     let discountPer = discountVal * 100
     // console.log("discount per>>>>>11", discountPer.toFixed());
 
-    const handleAddToCart = (value) => {
-        if (value > 0)
-            dispatch(addCartData({ ...item, qtyValue: value }))
-        else
-            dispatch(removeCartData(item))
-    }
+    const handleAddToCart = useCallback(
+        (value) => {
+            if (value > 0)
+                dispatch(addCartData({ ...item, qtyValue: value }))
+            else
+                dispatch(removeCartData(item))
+        },
+        [getValue],
+    )
 
-    const handleChange = (value) => {
-        if (value) {
-            dispatch(addFavData(item))
-            AlertSuccess('Added Item to FAVOURITE!')
-        } else {
-            dispatch(removeFavData(item))
-            AlertSuccess('Removed Item from FAVOURITE!')
-        }
-    }
+
+    const handleChange = useCallback(
+        (value) => {
+            if (value) {
+                dispatch(addFavData(item))
+                AlertSuccess('Added Item to FAVOURITE!')
+            } else {
+                dispatch(removeFavData(item))
+                AlertSuccess('Removed Item from FAVOURITE!')
+            }
+        },
+        [selected],
+    )
 
     React.useEffect(() => {
         let fp = fetchProducts?.filter((i, ind) => {
@@ -84,9 +91,12 @@ const RenderItem = ({ item, showCartButton }) => {
         })
     }, [focus])
 
+    const addToCartComponent = useMemo(() => <AddToCartButton getValue={getValue} setValue={setValue} handleValue={(value) => handleAddToCart(value)} />, [getValue]);
+    const favComponent = useMemo(() => <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />, [selected])
+
     return (
-        <View style={{ flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, margin: 5, borderRadius: 5, padding: 5 }}>
-            <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />
+        <View style={{width:250, flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, marginHorizontal: 8, borderRadius: 5, padding: 5,marginVertical:5 }}>
+            {favComponent}
             <View style={{ position: "absolute", right: 5, zIndex: 1 }} >
                 <Image source={require('../../assets/images/discount_new.png')} style={{ width: 32, height: 32 }} />
             </View>
@@ -102,12 +112,12 @@ const RenderItem = ({ item, showCartButton }) => {
                 <Text style={{ fontSize: 13, color: Colors.black, marginRight: 2 }}>&#8377;{' '}{item.price}</Text>
                 <Text style={{ textDecorationLine: 'line-through', textDecorationStyle: 'solid', fontSize: 10 }}>{item.oldPrice}</Text>
             </View>
-            {showCartButton ? <AddToCartButton getValue={getValue} setValue={setValue} handleValue={(value) => handleAddToCart(value)} /> : null}
+            {showCartButton ? addToCartComponent : null}
         </View>
     )
 }
 
-const TopProducts = ({ productsData, onRefresh, isRefreshing, showCartButton }) => {
+const TopProducts = ({ productsData, onRefresh, isRefreshing, showCartButton, horizontalCol, showHorizontal }) => {
 
     const [loader, setLoader] = React.useState(true)
 
@@ -117,20 +127,20 @@ const TopProducts = ({ productsData, onRefresh, isRefreshing, showCartButton }) 
         }, 4000);
     }, [])
 
-
-
     return (
         <>
             {loader ? <TopProductsShimmer /> :
                 <FlatList
                     data={productsData}
-                    numColumns={2}
+                    numColumns={horizontalCol}
+                    horizontal={showHorizontal ?? false}
+                    showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => <RenderItem showCartButton={showCartButton} item={item} />}
+                    renderItem={({ item }) => <RenderItem showCartButton={showCartButton} item={item} showHorizontal={showHorizontal} />}
                     keyExtractor={item => item.id}
                     // onRefresh={onRefresh}
                     // refreshing={isRefreshing}
-                    contentContainerStyle={{ margin: 10 }}
+                    contentContainerStyle={{ margin: 5 }}
                     ListFooterComponent={<View style={{ marginBottom: 30 }} />}
                     refreshControl={
                         <RefreshControl
@@ -151,7 +161,8 @@ TopProducts.defaultProps = {
     productsData: [],
     isRefreshing: false,
     onRefresh: () => { },
-    showCartButton: true
+    showCartButton: true,
+    horizontalCol:2
 }
 
 export default memo(TopProducts)

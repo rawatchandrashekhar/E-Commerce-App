@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useCallback,useMemo } from 'react'
 import { View, Dimensions, TextInput } from 'react-native'
 import Header from '../components/SharedComponents/Header'
 import Search from '../components/SharedComponents/Search'
@@ -19,16 +19,19 @@ const ProductSearching = ({ navigation }) => {
 
     // console.log("SEARCHING TXT", searchTxt);
 
-    const handleSearch = (txt) => {
-        if (txt === "") {
-            setData(tempData)
-        } else {
-            let filteredData = tempData?.filter((item, index) => {
-                return item.title.toLowerCase().includes(txt.toLowerCase())
-            })
-            setData(filteredData)
-        }
-    }
+    const handleSearch = useCallback(
+        (txt) => {
+            if (txt === "") {
+                setData(tempData)
+            } else {
+                let filteredData = tempData?.filter((item, index) => {
+                    return item.title.toLowerCase().includes(txt.toLowerCase())
+                })
+                setData(filteredData)
+            }
+        },
+        [data],
+    )
 
     const onRefresh = React.useCallback(() => {
         setIsRefreshing(true);
@@ -37,11 +40,13 @@ const ProductSearching = ({ navigation }) => {
         setIsRefreshing(false);
     }, []);
 
+    const topProductsComponent=useMemo(() => <TopProducts showCartButton={false} productsData={data} isRefreshing={isRefreshing} onRefresh={onRefresh} />, [data,isRefreshing])
+
     return (
         <View style={{ flex: 1 }}>
-            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Products'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} />
+            <Header handlePressLeftIcon={() => navigation.goBack()} title={'Products'} leftImgWidth={20} leftImgHeight={13} rightImgWidth={25} rightImgHeight={25} leftIcon={require('../assets/images/back.png')} rightIcon={require('../assets/images/cartTwo.png')} showLogo={false} showSearchIcon={false} />
             <Search handleChangeTxt={(txt) => handleSearch(txt)} searchTxt={searchTxt} setSearchTxt={setSearchTxt} />
-            <TopProducts showCartButton={false} productsData={data} isRefreshing={isRefreshing} onRefresh={onRefresh} />
+            {topProductsComponent}
         </View>
     )
 }
