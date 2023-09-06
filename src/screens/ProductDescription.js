@@ -1,5 +1,5 @@
-import React, { useCallback,useMemo } from 'react'
-import { StyleSheet, Text, View, Dimensions, ScrollView, Share } from 'react-native'
+import React, { useCallback, useMemo, useState } from 'react'
+import { StyleSheet, Text, View, Dimensions, ScrollView, Share, TouchableOpacity } from 'react-native'
 import { useIsFocused, useRoute } from '@react-navigation/native'
 import dynamicLinks from "@react-native-firebase/dynamic-links"
 import Header from '../components/SharedComponents/Header'
@@ -20,10 +20,35 @@ const { width, height } = Dimensions.get('screen')
 
 const ProductDescription = ({ navigation }) => {
 
-    let { route, params } = useRoute()
-    let dispatch = useDispatch()
+    let { route, params } = useRoute();
+    let dispatch = useDispatch();
 
-    const [getValue,setValue,selected,setSelected]=useTopProductsHook(params.id);
+    const [getValue, setValue, selected, setSelected] = useTopProductsHook(params.id);
+    const [selectedColor, setSelectedColor] = useState(0);
+    const [selectedImage,setSelectedImage]=useState(params?.image);
+
+    const handleSelectedColor = (index, item) => {
+        setSelectedColor(index);
+        setSelectedImage(item.images);
+    }
+
+    const showColorData = () => {
+        return params?.colors?.map((item, index) => {
+            return <TouchableOpacity onPress={() => handleSelectedColor(index, item)} key={index} style={{ marginRight: 10, borderWidth: 2, borderColor: index === selectedColor ? Colors.lightskyblue : "#fff", borderRadius: 15 }} >
+                <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: item.color }} />
+            </TouchableOpacity>
+        })
+    }
+
+    const showSizeData = () => {
+        return params?.sizes?.map((item, index) => {
+            return <View key={index} style={{ marginRight: 10 }} >
+                <View style={{ width: 25, height: 25, borderRadius: 5, borderWidth: 1, borderColor: "grey" }} >
+                    <Text style={{ fontFamily: FontFamily.PoppinsMedium, color: "grey", fontSize: 14, textAlign: "center" }} >{item}</Text>
+                </View>
+            </View>
+        })
+    }
 
     // console.log("ROUTE OF PRODUCT DESCRIPTION SCREEN", params);
 
@@ -78,8 +103,8 @@ const ProductDescription = ({ navigation }) => {
         }
     }
 
-    const favButtonComponent=useMemo(() => <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />, [selected]);
-    const addToCartButtonComponent=useMemo(()=><AddToCartButton setValue={setValue} getValue={getValue} handleValue={(value) => handleAddToCart(value)} />,[getValue])
+    const favButtonComponent = useMemo(() => <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />, [selected]);
+    const addToCartButtonComponent = useMemo(() => <AddToCartButton setValue={setValue} getValue={getValue} handleValue={(value) => handleAddToCart(value)} />, [getValue]);
 
     return (
         <View style={{ flex: 1 }} >
@@ -87,7 +112,7 @@ const ProductDescription = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15, padding: 10 }}>
                 {favButtonComponent}
                 <ShareBtn handlePress={() => shareProduct()} />
-                <CarouselComponent data={params?.image} />
+                <CarouselComponent data={selectedImage} />
                 <Space mV={10} />
                 <View style={{ borderBottomWidth: 2, borderRadius: 10, borderColor: Colors.lightskyblue, width: width * 0.95, alignSelf: "center" }} />
                 <Space mV={5} />
@@ -96,6 +121,27 @@ const ProductDescription = ({ navigation }) => {
                     <Text style={{ fontSize: 16, color: Colors.black, marginRight: 2 }}>&#8377;{' '}{params?.price}</Text>
                     <Text style={{ textDecorationLine: 'line-through', textDecorationStyle: 'solid', fontSize: 12 }}>{params?.oldPrice}</Text>
                 </View>
+                {/* <View style={{ flexDirection: "row", alignItems: "center",justifyContent:"space-between" }} > */}
+                {params?.colors?.length !== 0 ?
+                    <View style={{ marginVertical: 8, backgroundColor: "#fff", width: "45%", padding: 10, borderRadius: 10 }} >
+                        <Text style={{ fontSize: 15, color: "#000", fontFamily: FontFamily.PoppinsMedium, marginBottom: 3 }}>
+                            Select Color
+                        </Text>
+                        <View style={{ flexDirection: "row", alignItems: "center" }} >
+                            {showColorData()}
+                        </View>
+                    </View> : null}
+                {params?.sizes?.length !== 0 ?
+                    <View style={{ marginVertical: 8, backgroundColor: "#fff", width: "45%", padding: 10, borderRadius: 10 }}>
+                        <Text style={{ fontSize: 15, color: "#000", fontFamily: FontFamily.PoppinsMedium, marginBottom: 3 }}>
+                            Select Size
+                        </Text>
+                        <View style={{ flexDirection: "row", alignItems: "center" }} >
+                            {showSizeData()}
+                        </View>
+                    </View>
+                    : null}
+                {/* </View> */}
                 <Space mV={5} />
                 <View style={{ flexDirection: "column" }} >
                     <Text style={{ fontFamily: FontFamily.PoppinsMedium, color: Colors.black }} >Description{" "}:</Text>
