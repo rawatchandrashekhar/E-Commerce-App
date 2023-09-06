@@ -14,20 +14,16 @@ import { AlertSuccess } from '../components/SharedComponents/Alert'
 import FavouriteButton from '../components/SharedComponents/FavouriteButton'
 import ShareBtn from '../components/SharedComponents/ShareBtn'
 import CarouselComponent from '../components/SharedComponents/CarouselComponent'
+import useTopProductsHook from '../helper/customHooks/forTopProducts/useTopProductsHook'
 
 const { width, height } = Dimensions.get('screen')
 
 const ProductDescription = ({ navigation }) => {
 
     let { route, params } = useRoute()
-    let focus = useIsFocused()
     let dispatch = useDispatch()
-    let fetchProducts = useSelector(state => state?.cart?.addToCartData)
-    let fetchFavProducts = useSelector(state => state?.favourite?.addToFavouriteData)
 
-    const [getValue, setValue] = React.useState(0)
-    const [selected, setSelected] = React.useState(false)
-    const [getIndex, setIndex] = React.useState(0)
+    const [getValue,setValue,selected,setSelected]=useTopProductsHook(params.id);
 
     // console.log("ROUTE OF PRODUCT DESCRIPTION SCREEN", params);
 
@@ -40,20 +36,6 @@ const ProductDescription = ({ navigation }) => {
         },
         [getValue],
     )
-
-    React.useEffect(() => {
-        fetchProducts.filter((item, index) => {
-            if (params.id === item.id)
-                setValue(item.qtyValue)
-        })
-    }, [focus])
-
-    React.useEffect(() => {
-        fetchFavProducts?.filter((i, ind) => {
-            if (params.id === i.id)
-                setSelected(!selected)
-        })
-    }, [focus])
 
     const handleChange = useCallback(
         (value) => {

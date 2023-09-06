@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{memo} from 'react'
 import { View, Text, Dimensions, Image } from 'react-native'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Colors } from '../../assets/colors/Color';
@@ -95,4 +95,4 @@ CarouselComponent.defaultProps = {
     data: []
 }
 
-export default CarouselComponent
+export default memo(CarouselComponent)

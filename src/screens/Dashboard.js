@@ -51,10 +51,6 @@ const Dashboard = ({ navigation }) => {
         }, [])
     )
 
-    const categoriesComponent = useMemo(() => <Categories data={data} />, [data]);
-    const topProductsComponent = useMemo(() => <TopProducts productsData={productsData} horizontalCol={1} showHorizontal={true} />, [productsData]);
-    const carouselComponent = useMemo(() => <CarouselComponent data={imagesData} />, [imagesData])
-
     return (
         <View style={{ flex: 1 }}>
             <Header handlePressLeftIcon={() => navigation.openDrawer()} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
@@ -62,14 +58,14 @@ const Dashboard = ({ navigation }) => {
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 <View>
                     <View style={{ marginTop: 10 }}>
-                        {categoriesComponent}
+                    <Categories data={data} />
                     </View>
-                    {carouselComponent}
+                    <CarouselComponent data={imagesData} />
                     <View style={{ top: -15 }} >
                         <View style={{ alignItems: "flex-start",marginLeft:20 }} >
                             <Text style={{ color: Colors.black, borderBottomWidth: 1, fontFamily: FontFamily.PoppinsBold, fontSize: 20 }} >{strings.TopProducts}</Text>
                         </View>
-                        {topProductsComponent}
+                        <TopProducts productsData={productsData} horizontalCol={1} showHorizontal={true} />
                     </View>
                 </View>
             </ScrollView>
