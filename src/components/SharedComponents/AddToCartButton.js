@@ -1,4 +1,4 @@
-import React,{memo} from 'react'
+import React, { memo } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import FE from "react-native-vector-icons/Feather"
 import { AlertDanger } from './Alert'
@@ -27,7 +27,7 @@ const AddToCartButton = ({ handleValue, getValue, setValue }) => {
 
     return (
         <>
-            {getValue === 0 ? <Button handlePress={() => handleIncrement()} btnText={'ADD TO CART'} /> :
+            {getValue === 0 ? <Button marginBottom={0} handlePress={() => handleIncrement()} btnText={'ADD TO CART'} /> :
                 <View style={styles.container} >
                     <TouchableOpacity onPress={() => handleDecrement()} style={styles.btnStyle}>
                         <FE name='minus' size={16} style={styles.iconStyle} />
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: 5
+        marginVertical: 8,
+        top: 2
     },
     btnStyle: {
         width: 25,

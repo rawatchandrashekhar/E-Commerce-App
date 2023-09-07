@@ -23,58 +23,56 @@ const ProductDescription = ({ navigation }) => {
     let { route, params } = useRoute();
     let dispatch = useDispatch();
 
-    const [getValue, setValue, selected, setSelected] = useTopProductsHook(params.id);
+    const [getValue, setValue, selected, setSelected, handleAddToCart, handleChange] = useTopProductsHook(params);
     const [selectedColor, setSelectedColor] = useState(0);
-    const [selectedImage,setSelectedImage]=useState(params?.image);
+    const [selectedSize, setSelectedSize] = useState(0);
+    const [selectedImage, setSelectedImage] = useState(params?.image);
+    const [showRestDesc, setShowRestDesc] = useState(false);
+    const [getPrice, setPrice] = useState({
+        newPrice: params?.price,
+        oldPrice: params?.oldPrice
+    })
 
     const handleSelectedColor = (index, item) => {
         setSelectedColor(index);
         setSelectedImage(item.images);
+        setPrice({ newPrice: item?.price, oldPrice: item?.oldPrice });
+        console.log("selected color images>>>>>>>>>>>>>>>34", item.images);
+    }
+
+    const handleSelectedSize = (item, index) => {
+        setSelectedSize(index);
     }
 
     const showColorData = () => {
         return params?.colors?.map((item, index) => {
-            return <TouchableOpacity onPress={() => handleSelectedColor(index, item)} key={index} style={{ marginRight: 10, borderWidth: 2, borderColor: index === selectedColor ? Colors.lightskyblue : "#fff", borderRadius: 15 }} >
-                <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: item.color }} />
+            return <TouchableOpacity onPress={() => handleSelectedColor(index, item)} key={index} style={{ marginRight: 10, borderWidth: 2, borderColor: index === selectedColor ? Colors.lightskyblue : "#ecf0f1", borderRadius: 15 }} >
+                <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: item.color, margin: 2 }} />
             </TouchableOpacity>
         })
     }
 
     const showSizeData = () => {
         return params?.sizes?.map((item, index) => {
-            return <View key={index} style={{ marginRight: 10 }} >
-                <View style={{ width: 25, height: 25, borderRadius: 5, borderWidth: 1, borderColor: "grey" }} >
-                    <Text style={{ fontFamily: FontFamily.PoppinsMedium, color: "grey", fontSize: 14, textAlign: "center" }} >{item}</Text>
+            return <TouchableOpacity onPress={() => handleSelectedSize(item, index)} key={index} style={{ marginRight: 10 }} >
+                <View style={{ width: 25, height: 25, borderRadius: 5, borderWidth: 2, borderColor: selectedSize === index ? Colors.lightskyblue : "#dfe6e9" }} >
+                    <Text style={{ fontFamily: FontFamily.PoppinsMedium, color: selectedSize === index ? "#000" : "grey", fontSize: 14, textAlign: "center" }} >{item}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         })
     }
 
+    const showDescription = () => {
+        return <Text>{params?.description.slice(0, 160)}
+            {params?.description?.length > 160 && showRestDesc !== true ?
+                <Text onPress={() => setShowRestDesc(true)} style={{ color: Colors.lightskyblue }}>see more...</Text> : null}
+            {showRestDesc ?
+                <Text>{params?.description}<Text onPress={() => setShowRestDesc(false)} style={{ color: Colors.lightskyblue }} >{`${' '}see less...`}</Text></Text>
+                : null}
+        </Text>
+    }
+
     // console.log("ROUTE OF PRODUCT DESCRIPTION SCREEN", params);
-
-    const handleAddToCart = useCallback(
-        (value) => {
-            if (value > 0)
-                dispatch(addCartData({ ...params, qtyValue: value }))
-            else
-                dispatch(removeCartData(params))
-        },
-        [getValue],
-    )
-
-    const handleChange = useCallback(
-        (value) => {
-            if (value) {
-                dispatch(addFavData(params))
-                AlertSuccess('Added Item to FAVOURITE!')
-            } else {
-                dispatch(removeFavData(params))
-                AlertSuccess('Removed Item from FAVOURITE!')
-            }
-        },
-        [selected],
-    )
-
 
     const generateLink = async () => {
         try {
@@ -112,18 +110,13 @@ const ProductDescription = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15, padding: 10 }}>
                 {favButtonComponent}
                 <ShareBtn handlePress={() => shareProduct()} />
-                <CarouselComponent data={selectedImage} />
+                <CarouselComponent data={selectedImage} customWidth={'50%'} />
                 <Space mV={10} />
-                <View style={{ borderBottomWidth: 2, borderRadius: 10, borderColor: Colors.lightskyblue, width: width * 0.95, alignSelf: "center" }} />
+                <View style={{ borderBottomWidth: 2, borderRadius: 10, borderColor: Colors.lightskyblue, width: "95%", alignSelf: "center" }} />
                 <Space mV={5} />
                 <Text style={{ fontFamily: FontFamily.PoppinsMedium, fontSize: 20, color: Colors.black }} >{params?.title}</Text>
-                <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
-                    <Text style={{ fontSize: 16, color: Colors.black, marginRight: 2 }}>&#8377;{' '}{params?.price}</Text>
-                    <Text style={{ textDecorationLine: 'line-through', textDecorationStyle: 'solid', fontSize: 12 }}>{params?.oldPrice}</Text>
-                </View>
-                {/* <View style={{ flexDirection: "row", alignItems: "center",justifyContent:"space-between" }} > */}
                 {params?.colors?.length !== 0 ?
-                    <View style={{ marginVertical: 8, backgroundColor: "#fff", width: "45%", padding: 10, borderRadius: 10 }} >
+                    <View style={{ marginVertical: 8, width: "45%", padding: 0, borderRadius: 10 }} >
                         <Text style={{ fontSize: 15, color: "#000", fontFamily: FontFamily.PoppinsMedium, marginBottom: 3 }}>
                             Select Color
                         </Text>
@@ -132,7 +125,7 @@ const ProductDescription = ({ navigation }) => {
                         </View>
                     </View> : null}
                 {params?.sizes?.length !== 0 ?
-                    <View style={{ marginVertical: 8, backgroundColor: "#fff", width: "45%", padding: 10, borderRadius: 10 }}>
+                    <View style={{ marginVertical: 8, width: "45%", padding: 0, borderRadius: 10 }}>
                         <Text style={{ fontSize: 15, color: "#000", fontFamily: FontFamily.PoppinsMedium, marginBottom: 3 }}>
                             Select Size
                         </Text>
@@ -141,19 +134,22 @@ const ProductDescription = ({ navigation }) => {
                         </View>
                     </View>
                     : null}
-                {/* </View> */}
                 <Space mV={5} />
                 <View style={{ flexDirection: "column" }} >
                     <Text style={{ fontFamily: FontFamily.PoppinsMedium, color: Colors.black }} >Description{" "}:</Text>
-                    <Text>{params?.description}</Text>
+                    {showDescription()}
                 </View>
-                <Space mV={5} />
-                {addToCartButtonComponent}
-                <Space mV={10} />
+                <Space mV={30} />
             </ScrollView>
-            {/* <View style={{ position: "absolute", bottom: 5, width: width * 0.9, alignSelf: "center" }}>
-                <AddToCartButton />
-            </View> */}
+            <View style={{ position: "absolute", bottom: 0, width: "100%", flexDirection: "row", alignItems: "center", backgroundColor: "#fff" }}>
+                <View style={{ flexDirection: "row", alignItems: "flex-end", width: "40%" }}>
+                    <Text style={{ fontSize: 20, color: Colors.black, marginRight: 2, marginLeft: 15, fontFamily: FontFamily.PoppinsMedium, top: 4 }}>&#8377;{' '}{getPrice?.newPrice}</Text>
+                    <Text style={{ textDecorationLine: 'line-through', textDecorationStyle: 'solid', fontSize: 13, fontFamily: FontFamily.PoppinsMedium }}>{getPrice?.oldPrice}</Text>
+                </View>
+                <View style={{ width: "60%", bottom: 2 }} >
+                    {addToCartButtonComponent}
+                </View>
+            </View>
         </View>
     )
 }

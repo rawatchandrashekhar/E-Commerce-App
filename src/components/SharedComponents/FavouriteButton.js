@@ -15,7 +15,7 @@ const FavouriteButton = ({ selected, setSelected, handlePress }) => {
     return (<>
         <View style={{ position: "absolute", left: 5, top: 5, zIndex: 4 }} >
             <TouchableOpacity onPress={() => handleChange()} style={{
-                width: 30, height: 30, borderRadius: 15, backgroundColor: Colors.white, justifyContent: "center", alignItems: "center", elevation: 20, shadowColor: '#52006A'
+                width: 30, height: 30, borderRadius: 15, backgroundColor: Colors.white, justifyContent: "center", alignItems: "center", elevation: 5, shadowColor: '#52006A'
             }} >
                 <MCI name={selected ? 'heart' : 'heart-outline'} size={23} style={{ top: 0.5, color: selected ? Colors.indianred : Colors.grey }} />
             </TouchableOpacity>
