@@ -20,7 +20,7 @@ export default function DrawerNavigation(props) {
                     borderTopRightRadius: 0,
                     borderBottomRightRadius: 0,
                     overflow: 'hidden',
-                    width: width
+                    width: "100%"
                 },
             }}
             initialRouteName="Dashboard">

@@ -30,7 +30,7 @@ const productsData = [
                 color: "red",
                 price: 599,
                 oldPrice: 899,
-                images: [require('../assets/images/top_products/redSweater.png')]
+                images: [require('../assets/images/top_products/redSweater.png'), require('../assets/images/top_products/redSweaterSecond.png')]
             },
             {
                 color: "green",

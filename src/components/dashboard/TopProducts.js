@@ -18,8 +18,6 @@ const RenderItem = ({ item, showCartButton, showHorizontal }) => {
 
     // console.log("item", item);
 
-    let dispatch = useDispatch()
-
     // console.log("FOCUS HOOK>>>>>>>>>>>>", focus);
 
     const [getValue, setValue, selected, setSelected, handleAddToCart, handleChange] = useTopProductsHook(item);

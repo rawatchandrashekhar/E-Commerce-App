@@ -13,6 +13,7 @@ import strings from '../localization/localizedStrings/LocalizedStrings'
 import { getObjectData } from '../storage/asyncStorage/AsyncDataStorage'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { data, imagesData, productsData } from '../data/Data'
+import CustomCarouselComponent from '../components/SharedComponents/CustomCarouselComponent'
 // import CustomDrawer from '../navigation/customDrawer/CustomDrawer'
 
 const { width, height } = Dimensions.get('screen')
@@ -60,8 +61,9 @@ const Dashboard = ({ navigation }) => {
                     <View style={{ marginTop: 10 }}>
                     <Categories data={data} />
                     </View>
-                    <CarouselComponent data={imagesData} />
-                    <View style={{ top: -15 }} >
+                    {/* <CarouselComponent data={imagesData} /> */}
+                    <CustomCarouselComponent data={imagesData} />
+                    <View style={{  }} >
                         <View style={{ alignItems: "flex-start",marginLeft:20 }} >
                             <Text style={{ color: Colors.black, borderBottomWidth: 1, fontFamily: FontFamily.PoppinsBold, fontSize: 20 }} >{strings.TopProducts}</Text>
                         </View>

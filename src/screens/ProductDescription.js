@@ -15,6 +15,7 @@ import FavouriteButton from '../components/SharedComponents/FavouriteButton'
 import ShareBtn from '../components/SharedComponents/ShareBtn'
 import CarouselComponent from '../components/SharedComponents/CarouselComponent'
 import useTopProductsHook from '../helper/customHooks/forTopProducts/useTopProductsHook'
+import CustomCarouselComponent from '../components/SharedComponents/CustomCarouselComponent'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -46,7 +47,7 @@ const ProductDescription = ({ navigation }) => {
 
     const showColorData = () => {
         return params?.colors?.map((item, index) => {
-            return <TouchableOpacity onPress={() => handleSelectedColor(index, item)} key={index} style={{ marginRight: 10, borderWidth: 2, borderColor: index === selectedColor ? Colors.lightskyblue : "#ecf0f1", borderRadius: 15 }} >
+            return <TouchableOpacity activeOpacity={0.7} onPress={() => handleSelectedColor(index, item)} key={index} style={{ marginRight: 10, borderWidth: 2, borderColor: index === selectedColor ? Colors.lightskyblue : "#ecf0f1", borderRadius: 15 }} >
                 <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: item.color, margin: 2 }} />
             </TouchableOpacity>
         })
@@ -54,7 +55,7 @@ const ProductDescription = ({ navigation }) => {
 
     const showSizeData = () => {
         return params?.sizes?.map((item, index) => {
-            return <TouchableOpacity onPress={() => handleSelectedSize(item, index)} key={index} style={{ marginRight: 10 }} >
+            return <TouchableOpacity activeOpacity={0.7} onPress={() => handleSelectedSize(item, index)} key={index} style={{ marginRight: 10 }} >
                 <View style={{ width: 25, height: 25, borderRadius: 5, borderWidth: 2, borderColor: selectedSize === index ? Colors.lightskyblue : "#dfe6e9" }} >
                     <Text style={{ fontFamily: FontFamily.PoppinsMedium, color: selectedSize === index ? "#000" : "grey", fontSize: 14, textAlign: "center" }} >{item}</Text>
                 </View>
@@ -110,7 +111,8 @@ const ProductDescription = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15, padding: 10 }}>
                 {favButtonComponent}
                 <ShareBtn handlePress={() => shareProduct()} />
-                <CarouselComponent data={selectedImage} customWidth={'50%'} />
+                {/* <CarouselComponent data={selectedImage} customWidth={'50%'} /> */}
+                <CustomCarouselComponent data={selectedImage} />
                 <Space mV={10} />
                 <View style={{ borderBottomWidth: 2, borderRadius: 10, borderColor: Colors.lightskyblue, width: "95%", alignSelf: "center" }} />
                 <Space mV={5} />
