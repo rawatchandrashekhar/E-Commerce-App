@@ -107,20 +107,23 @@ const Login = ({ navigation }) => {
                                         if (resultPass.rows.length != 0) {
                                             // var temp = {};
                                             let promise = new Promise((resolve, reject) => {
-                                                setTimeout(() => {
-                                                    for (let i = 0; i < results.rows.length; ++i) {
-                                                        // temp = results.rows.item(i);
-                                                        // console.log("setLoader(true)", getLoader);
-                                                        storeObjectData('USER_DETAIL', results.rows.item(i))
-                                                        dispatch(addUserData(results.rows.item(i)))
-                                                    }
-                                                    resolve()
-                                                }, 2500);
+                                                const temp = [];
+                                                // setTimeout(() => {
+                                                for (let i = 0; i < results.rows.length; ++i) {
+                                                    // temp = results.rows.item(i);
+                                                    // console.log("setLoader(true)", getLoader);
+                                                    temp.push(results.rows.item(i));
+                                                }
+                                                resolve(temp);
+                                                // }, 2500);
                                             })
-                                            promise.then(() => {
-                                                AlertSuccess('Successfully Login!')
-                                                navigate('Main')
-                                                setLoader(false)
+                                            promise.then((result) => {
+                                                // console.log("USER DETAILS AFTER LOGIN", result);
+                                                storeObjectData('USER_DETAIL', result[0]);
+                                                dispatch(addUserData(result[0]));
+                                                AlertSuccess('Successfully Login!');
+                                                navigate('Main');
+                                                setLoader(false);
                                             }).catch((err) => {
                                                 console.log("EXCEPTION IN LOGIN", err);
                                             })

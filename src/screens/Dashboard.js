@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useState } from 'react'
 import { View, Text, FlatList, Image, TouchableOpacity, Dimensions, virtu, ScrollView, BackHandler } from 'react-native'
 import Header from '../components/SharedComponents/Header'
 import { Styles } from '../assets/globalCSS/GlobalCSS'
@@ -14,6 +14,7 @@ import { getObjectData } from '../storage/asyncStorage/AsyncDataStorage'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { data, imagesData, productsData } from '../data/Data'
 import CustomCarouselComponent from '../components/SharedComponents/CustomCarouselComponent'
+import ModalComponent from '../components/SharedComponents/ModalComponent'
 // import CustomDrawer from '../navigation/customDrawer/CustomDrawer'
 
 const { width, height } = Dimensions.get('screen')
@@ -62,7 +63,7 @@ const Dashboard = ({ navigation }) => {
                     <Categories data={data} />
                     </View>
                     {/* <CarouselComponent data={imagesData} /> */}
-                    <CustomCarouselComponent data={imagesData} />
+                    <CustomCarouselComponent data={imagesData} disableTouch={true} />
                     <View style={{  }} >
                         <View style={{ alignItems: "flex-start",marginLeft:20 }} >
                             <Text style={{ color: Colors.black, borderBottomWidth: 1, fontFamily: FontFamily.PoppinsBold, fontSize: 20 }} >{strings.TopProducts}</Text>
