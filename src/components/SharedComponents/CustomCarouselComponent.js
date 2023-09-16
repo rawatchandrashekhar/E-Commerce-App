@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, useEffect, memo,useMemo } from 'react'
 import { StyleSheet, Text, View, FlatList, Image, Dimensions } from 'react-native'
 import { Colors } from '../../assets/colors/Color';
 import Logo from '../../helper/Logo';
