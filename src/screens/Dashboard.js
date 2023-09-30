@@ -15,6 +15,7 @@ import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { data, imagesData, productsData } from '../data/Data'
 import CustomCarouselComponent from '../components/SharedComponents/CustomCarouselComponent'
 import ModalComponent from '../components/SharedComponents/ModalComponent'
+import RotatingIcon from './testingScreens/RotatingIcon'
 // import CustomDrawer from '../navigation/customDrawer/CustomDrawer'
 
 const { width, height } = Dimensions.get('screen')
@@ -57,6 +58,7 @@ const Dashboard = ({ navigation }) => {
         <View style={{ flex: 1 }}>
             <Header handlePressLeftIcon={() => navigation.openDrawer()} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
             {/* <CustomDrawer /> */}
+            <RotatingIcon />
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 <View>
                     <View style={{ marginTop: 10 }}>

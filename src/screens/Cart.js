@@ -32,7 +32,7 @@ const Cart = ({ navigation }) => {
     const handlePayment = () => {
         // alert("PAY NOW")
         var options = {
-            description: 'We are provide best services for online platform after doing order products.',
+            description: 'We are provide best services on online platform after doing order products.',
             image: 'https://cdn-icons-png.flaticon.com/128/7336/7336428.png',
             currency: 'INR',
             key: RAZORPAY_KEY_ID,
