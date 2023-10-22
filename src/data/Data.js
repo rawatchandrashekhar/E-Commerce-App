@@ -17,20 +17,20 @@ const productsData = [
         id: 1,
         price: 699,
         oldPrice: 999,
-        title: 'Men Full Sleeve Printed Sweatshirt',
-        image: [require('../assets/images/top_products/sweator.png')],
+        title: 'Men Full Sleeve Sweatshirt',
+        image: [require('../assets/images/top_products/yellowSweater.png')],
         colors: [
             {
-                color: "yellow",
+                color: "#f1c40f",
                 price: 699,
                 oldPrice: 999,
-                images: [require('../assets/images/top_products/sweator.png')]
+                images: [require('../assets/images/top_products/yellowSweater.png')]
             },
             {
                 color: "red",
                 price: 599,
                 oldPrice: 899,
-                images: [require('../assets/images/top_products/redSweater.png')]
+                images: [require('../assets/images/top_products/redSweater.png'), require('../assets/images/top_products/redSweaterSecond.png')]
             },
             {
                 color: "green",
@@ -70,7 +70,7 @@ const productsData = [
         image: [require('../assets/images/top_products/helmet.png')],
         colors: [],
         sizes: [],
-        description: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus'
+        description: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'
     },
     {
         id: 5,

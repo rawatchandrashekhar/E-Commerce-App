@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useState } from 'react'
 import { View, Text, FlatList, Image, TouchableOpacity, Dimensions, virtu, ScrollView, BackHandler } from 'react-native'
 import Header from '../components/SharedComponents/Header'
 import { Styles } from '../assets/globalCSS/GlobalCSS'
@@ -13,6 +13,9 @@ import strings from '../localization/localizedStrings/LocalizedStrings'
 import { getObjectData } from '../storage/asyncStorage/AsyncDataStorage'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { data, imagesData, productsData } from '../data/Data'
+import CustomCarouselComponent from '../components/SharedComponents/CustomCarouselComponent'
+import ModalComponent from '../components/SharedComponents/ModalComponent'
+import RotatingIcon from './testingScreens/RotatingIcon'
 // import CustomDrawer from '../navigation/customDrawer/CustomDrawer'
 
 const { width, height } = Dimensions.get('screen')
@@ -55,13 +58,15 @@ const Dashboard = ({ navigation }) => {
         <View style={{ flex: 1 }}>
             <Header handlePressLeftIcon={() => navigation.openDrawer()} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
             {/* <CustomDrawer /> */}
+            <RotatingIcon />
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 <View>
                     <View style={{ marginTop: 10 }}>
                     <Categories data={data} />
                     </View>
-                    <CarouselComponent data={imagesData} />
-                    <View style={{ top: -15 }} >
+                    {/* <CarouselComponent data={imagesData} /> */}
+                    <CustomCarouselComponent data={imagesData} disableTouch={true} />
+                    <View style={{  }} >
                         <View style={{ alignItems: "flex-start",marginLeft:20 }} >
                             <Text style={{ color: Colors.black, borderBottomWidth: 1, fontFamily: FontFamily.PoppinsBold, fontSize: 20 }} >{strings.TopProducts}</Text>
                         </View>

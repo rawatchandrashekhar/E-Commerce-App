@@ -14,48 +14,23 @@ import { addFavData, removeFavData } from '../../storage/redux/slices/AddToFavou
 import { AlertSuccess } from '../SharedComponents/Alert'
 import useTopProductsHook from '../../helper/customHooks/forTopProducts/useTopProductsHook'
 
-const RenderItem = ({ item, showCartButton,showHorizontal }) => {
+const RenderItem = ({ item, showCartButton, showHorizontal }) => {
 
     // console.log("item", item);
 
-    let dispatch = useDispatch()
-
     // console.log("FOCUS HOOK>>>>>>>>>>>>", focus);
 
-    const [getValue,setValue,selected,setSelected]=useTopProductsHook(item.id);
+    const [getValue, setValue, selected, setSelected, handleAddToCart, handleChange] = useTopProductsHook(item);
 
-    let discountVal = (item.oldPrice - item.price) / item.oldPrice
-    let discountPer = discountVal * 100
+    let discountVal = (item.oldPrice - item.price) / item.oldPrice;
+    let discountPer = discountVal * 100;
     // console.log("discount per>>>>>11", discountPer.toFixed());
-
-    const handleAddToCart = useCallback(
-        (value) => {
-            if (value > 0)
-                dispatch(addCartData({ ...item, qtyValue: value }))
-            else
-                dispatch(removeCartData(item))
-        },
-        [getValue],
-    )
-
-    const handleChange = useCallback(
-        (value) => {
-            if (value) {
-                dispatch(addFavData(item))
-                AlertSuccess('Added Item to FAVOURITE!')
-            } else {
-                dispatch(removeFavData(item))
-                AlertSuccess('Removed Item from FAVOURITE!')
-            }
-        },
-        [selected],
-    )
 
     const addToCartComponent = useMemo(() => <AddToCartButton getValue={getValue} setValue={setValue} handleValue={(value) => handleAddToCart(value)} />, [getValue]);
     const favComponent = useMemo(() => <FavouriteButton handlePress={(value) => handleChange(value)} selected={selected} setSelected={setSelected} />, [selected])
 
     return (
-        <View style={{width:showHorizontal?250:null, flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, marginHorizontal:showHorizontal? 8:5, borderRadius: 5, padding: 5,marginVertical:5 }}>
+        <View style={{ width: showHorizontal ? 250 : null, flex: 1, borderWidth: 1, borderColor: Colors.lightskyblue, marginHorizontal: showHorizontal ? 8 : 5, borderRadius: 5, padding: 5, marginVertical: 5 }}>
             {favComponent}
             <View style={{ position: "absolute", right: 5, zIndex: 1 }} >
                 <Image source={require('../../assets/images/discount_new.png')} style={{ width: 32, height: 32 }} />
@@ -122,7 +97,7 @@ TopProducts.defaultProps = {
     isRefreshing: false,
     onRefresh: () => { },
     showCartButton: true,
-    horizontalCol:2
+    horizontalCol: 2
 }
 
 export default memo(TopProducts)

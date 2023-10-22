@@ -1,4 +1,4 @@
-import React,{memo} from 'react'
+import React, { memo } from 'react'
 import { View, Text, Dimensions, Image } from 'react-native'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Colors } from '../../assets/colors/Color';
@@ -8,13 +8,16 @@ const { width, height } = Dimensions.get('screen')
 const SLIDER_WIDTH = width + 30
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.9)
 
-const RenderItem = ({ item }) => {
-    return <View style={{ padding: 20, borderRadius: 20, alignItems: "center" }}>
-        <Image source={item} resizeMode='contain' style={{ width: width * 0.9, height: width / 2, borderRadius: 10 }} />
-    </View>
-}
 
-const CarouselComponent = ({ data }) => {
+const CarouselComponent = ({ data, customWidth }) => {
+
+    const RenderItem = ({ item }) => {
+        return <View style={{ padding: 20, borderRadius: 20, alignItems: "center" }}>
+            <Image source={item} resizeMode='contain' style={{ width: customWidth, height: width / 2, borderRadius: 10 }} />
+        </View>
+    }
+
+    // console.log("carousel component data>>>>>>>>>>>>>19",data);
 
     const [getIndex, setIndex] = React.useState(0)
     const isCarousel = React.useRef(null)
@@ -23,7 +26,7 @@ const CarouselComponent = ({ data }) => {
         if (getIndex === data.length - 1) {
             setTimeout(() => {
                 isCarousel?.current?.snapToItem(0);
-            }, 3500)
+            }, 2000)
         }
     }, [getIndex]);
 
@@ -92,7 +95,8 @@ const CarouselComponent = ({ data }) => {
 }
 
 CarouselComponent.defaultProps = {
-    data: []
+    data: [],
+    customWidth: "100%"
 }
 
 export default memo(CarouselComponent)

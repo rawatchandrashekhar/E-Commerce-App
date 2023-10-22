@@ -8,7 +8,7 @@ const ShareBtn = ({ selected, setSelected, handlePress }) => {
     return (
         <View style={{ position: "absolute", left: 5, top: 50, zIndex: 4 }} >
             <TouchableOpacity onPress={() => handlePress()} style={{
-                width: 30, height: 30, borderRadius: 15, backgroundColor: Colors.white, justifyContent: "center", alignItems: "center", elevation: 20, shadowColor: '#52006A'
+                width: 30, height: 30, borderRadius: 15, backgroundColor: Colors.white, justifyContent: "center", alignItems: "center", elevation: 5, shadowColor: '#52006A'
             }} >
                 <MCI name='share-variant-outline' size={21} style={{ color: "#000", right: 1 }} />
             </TouchableOpacity>
