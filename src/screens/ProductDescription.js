@@ -88,7 +88,7 @@ const ProductDescription = ({ navigation }) => {
             console.log("dynamic link>>>>74", link);
             return link
         } catch (e) {
-            console.log("EXCEPTION IN PRODUCT DESCRIPTION>>>>>>>>>>>>>>>>>>>", e);
+            console.error("EXCEPTION IN PRODUCT DESCRIPTION>>>>>>>>>>>>>>>>>>>", e);
         }
     }
 
@@ -99,7 +99,7 @@ const ProductDescription = ({ navigation }) => {
                 message: getLink
             })
         } catch (e) {
-            console.log("SHARE EXCEPTION IN PRODUCT DESCRIPTION>>>>>>>>>>>>>>>>>>>", e);
+            console.error("SHARE EXCEPTION IN PRODUCT DESCRIPTION>>>>>>>>>>>>>>>>>>>", e);
         }
     }
 
