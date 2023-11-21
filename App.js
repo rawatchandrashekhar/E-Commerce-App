@@ -17,7 +17,7 @@ const App = () => {
         temp().then(() => {
             insertUserDetail();
         }).catch((e) => {
-            console.log("EXCEPTION IN INSERT USER DETAIL IN APP", e);
+            console.error("EXCEPTION IN INSERT USER DETAIL IN APP", e);
         })
         LogBox.ignoreAllLogs(true);
     }, [])
