@@ -58,7 +58,7 @@ const Dashboard = ({ navigation }) => {
         <View style={{ flex: 1 }}>
             <Header handlePressLeftIcon={() => navigation.openDrawer()} leftIcon={require('../assets/images/hamburgermenu.png')} rightIcon={require('../assets/images/cartTwo.png')} leftImgWidth={28} leftImgHeight={18} rightImgWidth={25} rightImgHeight={25} />
             {/* <CustomDrawer /> */}
-            <RotatingIcon />
+            {/* <RotatingIcon /> */}
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 <View>
                     <View style={{ marginTop: 10 }}>
